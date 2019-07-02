@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<title>Ragdoll</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" type="text/css" href="title.css">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+	
+<style>
+	#meetinglist{
+		font-family: "youyuan";
+		
+	}
+</style>
+</head>
+	<body>
+		<div class="title">
+			<p align="center" >云会议管理系统</p>
+		</div>
+		<div class="search">
+			<span class="icon-list"></span><input type="button" class="button" value="会议列表" style="width:50%;height:10%" onclick="window.location.href='index.html'"><span class="icon-user"></span><input type="button" class="button" value="个人中心" style="width:50%;height:10%" onclick="window.location.href='personalpage.html'">
+		</div>
+		<div id="meetinglist">
+		</div>
+		<script>
+			var a="";
+			$.ajax({
+				url: "http://192.168.137.1:8090/meeting/findByCId/1",
+				type: "GET",
+				contentType: "application/json;charset=utf-8",				
+				success: function (data) {
+					$.each(data, function (i, data){
+						
+							a+= "<button class=\"button1\" onclick=\"window.location.href='meetingdetail.html?id="+data.conid+"'\">\n" +
+							                 data.conname +		                    
+							                 "</button>"
+						
+						var meeting = document.getElementById("meetinglist");
+						meeting.innerHTML=a;
+					});
+				},
+				error: function (data) {
+					alert("加载失败");
+				}
+			})
+		</script>
+	</body>
+</html>
