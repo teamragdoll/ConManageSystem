@@ -1,0 +1,69 @@
+/* 2017302580283 李彩彬 */
+.pic1{
+		width:25%;
+		height:25%;		
+	}
+	
+.pic2{
+		width:100%;
+		height:100%;				
+	}	
+
+ html {
+  background: #F0F0F0;
+} 
+
+#h2{
+	margin-top: 60px;
+	color: #01AAED;
+}
+
+.content{
+	width: 100%;
+	text-align: center;
+}
+
+.longin-boder{
+	width: 80%;
+	height: 40px;
+	margin-top: 20px;
+	margin-left: 10%;
+	line-height: 40px;
+	text-align: center;
+	border: 1px solid #dddddd;
+	border-radius: 5px;  
+	background-color: #efefef;
+}
+
+.input{
+	width: 80%;
+	margin-left: 5%;
+	height: 37px;
+	line-height: 37px;
+	border:0px;
+	color: #333333;
+	font-size: 16px;
+	background-color: #efefef;
+}
+
+ 
+
+.button{
+	height: 40px;
+	width: 80%;
+	margin-top: 20px;
+	font-size: 16px;
+	font-family: "微软雅黑";
+	font-weight: bold;
+	line-height: 38px;
+	border-radius: 5px;
+	color: #ffffff;
+	background-color: #03A9F4;
+	border-radius: 30px;
+}
+
+.button:active { 
+	background-color:#37a3b9;
+}
+
+ 

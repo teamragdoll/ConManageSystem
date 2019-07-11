@@ -1,0 +1,199 @@
+ <!-- 2017302580270 王泽煜 -->
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>个人中心</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">		
+		<meta name="apple-mobile-web-app-capable" content="yes">		
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">		
+		<meta name="format-detection" content="telephone=no">
+		<link rel="stylesheet" type="text/css" href="../css/title.css">
+		<link rel="stylesheet" href="../layui/css/layui.css">
+		<script src="../layui/layui.all.js">
+		<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/funing.js"></script>
+		<script>
+			var username=UrlParam.paramValues("uname");
+		    // alert(username);
+		</script>
+		<script>
+			function toindex(){
+				window.location.href="../meeting/index.html?uname="+username;
+			}
+			function tomessage(){
+				window.location.href="../message/message.html?uname="+username;
+			}
+			function topersonalpage(){
+				window.location.href="../user/personalpage.html?uname="+username;
+			}
+		</script>
+		<title>personalpage</title>
+	</head>
+	<style>
+		.detailbutton{
+			background-color:#FFFFFF;
+			color: #000000;
+			font-family: "youyuan";
+			padding: 15px 32px;
+			font-size: larger;
+			width: 100%;
+			border-right: none;
+			border-left:none;
+			border-top: none;
+			padding: none;
+			border-width: thin;
+			/* border: #555555 solid; */
+
+		}
+		.pic{
+		   width:50%;
+		   height:50%;
+		   display:flex;
+		   align-items:center;
+		   justify-content:center;
+		   border-radius:100%;
+		}
+		.option{
+			margin: 0;
+			
+		}
+		.button3{
+			width: 33.3%;
+			height: 80px;
+			border: none;
+			display:inline;
+		}
+		.search .layui-icon.layui-icon-friends{
+			position: absolute;
+			bottom: 29%;
+			left: 78%;
+			color:  #03A9F4;
+			font-size: xx-large;
+			font-weight: 900;
+		}		
+		.myinfo{
+			position: relative;
+		}
+		.myinfo .layui-icon.layui-icon-user{
+			position: absolute;
+			bottom: 28%;
+			left: 30%;
+			color: #03A9F4;
+			font-size: x-large;
+			font-weight: 900;
+		} 
+		.cardmanage{
+			position: relative;
+		}
+		.cardmanage .layui-icon.layui-icon-tabs{
+			position: absolute;
+			bottom: 28%;
+			left: 30%;
+			color: lightskyblue;
+			font-size: x-large;
+			font-weight: 900;
+		} 
+		.mymeeting{
+			position: relative;
+		}
+		.mymeeting .layui-icon.layui-icon-log{
+			position: absolute;
+			bottom: 28%;
+			left: 30%;
+			color: #00FF00;
+			font-size: x-large;
+			font-weight: 900;
+		}
+		.activity{
+			position: relative;
+		}
+		.activity .layui-icon.layui-icon-star{
+			position: absolute;
+			bottom: 28%;
+			left: 30%;
+			color: #FFB800;
+			font-size: x-large;
+			font-weight: 900;
+		}
+		.mytrophy{
+			position: relative;
+		}
+		.mytrophy .layui-icon.layui-icon-diamond{
+			position: absolute;
+			bottom: 28%;
+			left: 30%;
+			color: #01AAED;
+			font-size: x-large;
+			font-weight: 900;
+		}
+		.profileboard{
+			background-color: #00F7DE;
+			color: #FFFFFF;
+			font-size:x-large ;
+			background: -webkit-linear-gradient(left top, #03A9F4, #2196F3); /* Safari 5.1 - 6.0 */
+			background: -o-linear-gradient(bottom right, #03A9F4, #2196F3); /* Opera 11.1 - 12.0 */
+			background: -moz-linear-gradient(bottom right, #03A9F4, #2196F3); /* Firefox 3.6 - 15 */
+			background: linear-gradient(to bottom right, #03A9F4 , #2196F3);
+		}
+		.title{
+			background-color: #03A9F4;
+			color: #FFFFFF;
+			border: #4CAF50;		
+			padding: 15px 32px;	   
+			position: relative;
+			height: 50px;
+			margin-bottom: 0;
+			background: -webkit-linear-gradient(left top, #03A9F4, #2196F3); /* Safari 5.1 - 6.0 */
+			background: -o-linear-gradient(bottom right, #03A9F4, #2196F3); /* Opera 11.1 - 12.0 */
+			background: -moz-linear-gradient(bottom right, #03A9F4, #2196F3); /* Firefox 3.6 - 15 */
+			background: linear-gradient(to bottom right, #03A9F4 , #2196F3);
+		}
+	</style>
+	<script>
+		window.onload=function(){
+			src1="http://42.159.11.72:8090/myProfile/"+username+".jpg";
+			document.getElementById("myprofile").src = src1;
+			document.getElementById("bigprofile").src = src1;
+		};
+		function touserdetails(){
+			window.location.href="../user/userdetails.html?uname="+username;
+		}
+		function tocardmanage(){
+			window.location.href="../user/cardmanage.html?uname="+username;
+		}
+		function tomymeeting(){
+			window.location.href="../user/mymeeting.html?uname="+username;
+		}
+		function toactivity(){
+			window.location.href="../user/activity.html?uname="+username;
+		}
+		function tomytrophy(){
+			window.location.href="../user/mytrophy.html?uname="+username;
+		}
+	</script>
+	<body>
+		<div class="title">
+			<img  alt="profile" id="myprofile"><p class="titletext" >个人中心</p>
+		</div>
+		<div class="search">
+			<button class="button1" onclick="toindex()"><i class="layui-icon layui-icon-menu-fill"></i></button><button class="button2" onclick="tomessage()"><i class="layui-icon layui-icon-reply-fill"></i></button><button class="button3" onclick="topersonalpage()"><i class="layui-icon layui-icon-friends"></i></button>
+		</div>
+		<div class="profileboard" align="center">
+			<br>
+			<img  alt="用户头像" class="pic" id="bigprofile"><br>
+			<p id="username1"></p>
+			<br>
+		</div>
+		<script language="JavaScript">
+			username1.innerHTML = '<strong>'+username+'</strong>';
+		</script>
+		<div class="option">
+			<div class="myinfo" align="left"><i class="layui-icon layui-icon-user"></i><button class="detailbutton" onclick="touserdetails()">我的资料</button></div>
+			<div class="cardmanage" align="left"><i class="layui-icon layui-icon-tabs"></i><button class="detailbutton" onclick="tocardmanage()">名片管理</button></div>
+			<div class="mymeeting" align="left"><i class="layui-icon layui-icon-log"></i><button class="detailbutton" onclick="tomymeeting()">我的会议</button></div>
+			<div class="activity" align="left"><i class="layui-icon layui-icon-star"></i><button class="detailbutton" onclick="toactivity()">活动</button></div>
+			<div class="mytrophy" align="left"><i class="layui-icon layui-icon-diamond"></i><button class="detailbutton" onclick="tomytrophy()">我的奖品</button></div/div>
+		</div>
+	</body>
+</html>

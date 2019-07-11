@@ -1,0 +1,122 @@
+<!-- 2017302580283 李彩彬 -->
+<!DOCTYPE html>
+<html>
+<head>
+
+	<title>下载文件</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" type="text/css" href="../css/title.css">
+	<link rel="stylesheet" type="text/css" href="../css/style.css">
+	<link rel="stylesheet" href="../layui/css/layui.css">
+	<script src="../layui/layui.all.js"></script>
+	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/funing.js"></script>
+	<script>
+		var username=UrlParam.paramValues("uname");
+	</script>
+	<script>var conid=UrlParam.paramValues("id");</script>
+<style>
+	#meetinglist{
+		font-family: "youyuan";
+		margin-top: 5px;
+		margin-bottom: 80px;
+	}
+	#NewMeetingList{
+		font-family: "youyuan";
+		margin-top: 5px;
+	}
+	.button1{
+			width: 33.3%;
+			height: 80px;
+			border: none;
+			display:inline;
+			
+		}
+	.search .layui-icon.layui-icon-menu-fill{
+			position: absolute;
+			bottom: 29%;
+			left: 13%;
+			color: #03A9F4;
+			font-size: xx-large;
+		}
+	
+	#MeetingName{
+		width: 80%;
+		position: relative;
+		left: 15%;
+		right:5%;		
+		height: 50px;
+		margin: 0;
+		border: none;
+		background-color: #F2F2F2;
+	}
+	.searchbox{
+		position: relative;
+		border-radius: 30px;
+		background-color: #F2F2F2;
+	}
+	.searchbox .layui-icon.layui-icon-search{
+		position: absolute;
+		top: 20%;
+		left: 5%;
+		color: #03A9F4;
+		font-size: xx-large;
+		font-weight: 900;
+	}
+	
+</style>
+<script>
+	window.onload=function(){
+		src1="http://42.159.11.72:8090/myProfile/"+username+".jpg";		
+		document.getElementById("myprofile").src = src1;
+	};
+	function toindex(){
+		window.location.href="../meeting/index.html?uname="+username;
+	}
+	function tomessage(){
+		window.location.href="../message/message.html?uname="+username;
+	}
+	function topersonalpage(){
+		window.location.href="../user/personalpage.html?uname="+username;
+	}
+</script>
+</head>
+	<body >
+		<div class="title">
+			<img  alt="profile" id="myprofile"><p class="titletext">下载文件</p>
+		</div>
+		
+		<div class="search">
+			<button class="button1" onclick="toindex()"><i class="layui-icon layui-icon-menu-fill"></i></button><button class="button2" onclick="tomessage()"><i class="layui-icon layui-icon-reply-fill"></i></button><button class="button3" onclick="topersonalpage()"><i class="layui-icon layui-icon-friends"></i></button>
+		</div>
+		
+		<!-- 文件列表 -->
+		<div id="filelist">						
+		</div>		
+		<script>
+			var File="";
+			//alert("会议id:"+conid);
+			$.ajax({
+				url: 'http://42.159.11.72:8090/download/' + conid,
+				type: "GET",
+				contentType: "application/json;charset=utf-8",				
+				success: function (data) {
+					$.each(data, function (i, data){
+						//alert(data.fileURL);
+						File+= "<a href= \""+data.fileURL+"\" download=\""+123+"\">" + "<button class=\"buttonlist\" >\n" + data.fileName + "</button>" + "</a>"						
+						var newfile = document.getElementById("filelist");
+						newfile.innerHTML=File;												
+					});
+				},
+				error: function (data) {
+					alert("未接收到文件信息");
+				}
+			})		
+		</script>
+		<!-- <a href="http://42.159.11.72:8090/meetingFile/meeting1/cat.png"> <button class="buttonlist">Test</button></a> -->
+	</body>
+</html>

@@ -1,0 +1,67 @@
+<!-- 2017302580283 李彩彬 -->
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>mytrophy</title>
+		<meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">		
+		<meta name="apple-mobile-web-app-capable" content="yes">		
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">		
+		<meta name="format-detection" content="telephone=no">
+		<link rel="stylesheet" type="text/css" href="../css/title.css">
+		<link rel="stylesheet" type="text/css" href="../css/style.css">
+		<link rel="stylesheet" href="../layui/css/layui.css">
+		<script src="../layui/layui.all.js"></script>
+		<script type="text/javascript" src="../js/funing.js"></script>
+	</head>
+	<script>
+		var username=UrlParam.paramValues("uname");
+		// alert(username);
+	</script>
+	<script>
+		window.onload=function(){
+			src1="http://42.159.11.72:8090/myProfile/"+username+".jpg";
+			document.getElementById("myprofile").src = src1;
+		};
+		function toindex(){
+			window.location.href="../meeting/index.html?uname="+username;
+		}
+		function tomessage(){
+			window.location.href="../message/message.html?uname="+username;
+		}
+		function topersonalpage(){
+			window.location.href="../user/personalpage.html?uname="+username;
+		}
+	</script>
+	<style>
+		.button3{
+			width: 33.3%;
+			height: 80px;
+			border: none;
+			display:inline;
+		}
+		.search .layui-icon.layui-icon-friends{
+			position: absolute;
+			bottom: 29%;
+			left: 78%;
+			color:  #03A9F4;
+			font-size: xx-large;
+			font-weight: 900;
+		}		
+	</style>
+	<body style="background-color: #F6F6F6;">
+		<div class="title">
+			<img  alt="profile" id="myprofile"><p class="titletext">我的奖品</p>
+		</div>
+		<div align="center" class="biaoti" style="margin-top: 80px">
+			<h style="font-size: xx-large; margin-top: 50px;">您已获得：</h>
+		</div>
+		<div align="center" style="font-size: large; margin-bottom: 30px;" >
+			<p style="color: #03A9F4; font-weight: 700; font-size: x-large;">TeamRagdoll签名照一张</p>
+			<img src="../picture/trophy.jpg" id="trophy1"  style="height: 60%;width: 60%; margin: 50px;">
+		</div>		
+		<div class="search">
+			<button class="button1" onclick="toindex()"><i class="layui-icon layui-icon-menu-fill"></i></button><button class="button2" onclick="tomessage()"><i class="layui-icon layui-icon-reply-fill"></i></button><button class="button3" onclick="topersonalpage()"><i class="layui-icon layui-icon-friends"></i></button>
+		</div>
+	</body>
+</html>

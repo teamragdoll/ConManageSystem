@@ -1,0 +1,113 @@
+<!-- 2017302580283 李彩彬 -->
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+	<title>注册</title>
+	<meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="format-detection" content="telephone=no">
+	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+	<link rel="stylesheet" href="../css/register.css">	
+	<link rel="stylesheet" href="../layui/css/layui.css"/>
+    <script src="../layui/layui.js"></script>
+	<script src="layui/layui.js"></script>	
+</head>
+	<body>
+	<div align="center">
+		<br><br><h1>注册</h1><br>
+		<form id="register">			
+			<input class="input" type="text" placeholder="请输入姓名" id="mname"><br>
+			<input class="input" type="text" placeholder="请输入联系方式" id="mtel"><br>
+			<input class="input" type="text" placeholder="请输入所属公司" id="mcompanyid"><br>
+			<input class="input" type="text" placeholder="请输入公司职位" id="mposition"><br>
+			<input class="input" type="text" placeholder="请输入家庭地址" id="maddress"><br>
+			<input class="input" type="text" placeholder="请输入用户名" id="musername"><br>
+			<input class="input" type="text" placeholder="请输入密码" id="mpassword"><br>
+			<input class="input" type="text" placeholder="请输入电子邮箱" id="memail"><br>
+			<input type="button" class="layui-btn layui-btn-lg layui-btn-radius layui-btn-normal" value="获取验证码" id="get"><br>
+			<input class="input" type="text" placeholder="请输入验证码" id="Code"><br>
+			<input type="button" class="layui-btn layui-btn-lg layui-btn-radius layui-btn-normal" value="完成" id="newuser">	  
+		</form>
+	</div>		
+		<script>
+			 $(document).ready(function(){				 
+				var IdentifyingCode;//定义变量用于记录验证码				
+				 // 验证用户名是否重复并获取验证码
+				  $("#get").click(function(){					  
+					  var UsernameAndEmail={						      
+					  	 musername : document.forms["register"]["musername"].value,						 
+					  	 memail    : document.forms["register"]["memail"].value
+					     };																		  
+				    $.ajax({
+				         url: "http://42.159.11.72:8090/sendMail",
+				         type: "POST",
+				         contentType: "application/json;charset=utf-8",												 
+				         data: JSON.stringify(UsernameAndEmail),//向后台传递用户名和邮箱						
+				         success: function (data) {
+				                         if(data=="用户名已经存在"){
+				 							//用户名重复,弹窗报错
+				 							alert("用户名重复，请更换用户名");
+				 						}else if(data=="邮箱已经存在"){
+											//email重复,弹窗报错
+											alert("该邮箱已注册，请更换邮箱");
+										}else if(data=="信息检验失败"){
+											//信息检索失败(后台错误)
+											alert("后台信息检索错误");
+										}else{
+											//用户名未重复,成功发送验证码至邮箱,前端负责记录
+											IdentifyingCode = data;																													
+										}				
+				                     },
+				                     error: function (data) {
+				                        alert("连接失败");
+				                     }
+				                 })
+				             });
+						
+				 
+				 //完成验证码验证后传递对象
+			    $("#newuser").click(function(){					
+			        var muserinfo={
+			             mname     : document.forms["register"]["mname"].value,
+			             mtel      : document.forms["register"]["mtel"].value,
+						 mcompanyid: document.forms["register"]["mcompanyid"].value,
+						 mposition : document.forms["register"]["mposition"].value,
+						 maddress  : document.forms["register"]["maddress"].value,
+						 musername : document.forms["register"]["musername"].value,
+						 mpassword : document.forms["register"]["mpassword"].value,
+						 memail    : document.forms["register"]["memail"].value
+			           };								 
+				if(IdentifyingCode==document.forms["register"]["Code"].value)
+				{					
+			      $.ajax({					  
+			            url: "http://42.159.11.72:8090/user/register",
+			            type: "POST",
+			            contentType: "application/json;charset=utf-8",
+			            data: JSON.stringify(muserinfo),
+			                        success: function (data) {
+			                            if(data=="注册成功"){
+											//成功,跳转至登录界面
+											//alert("注册成功");
+											window.location.href='Login.html';
+										}else{
+											//后台注册失败
+											alert("注册失败");
+										}			
+			                        },
+			                        error: function (data) {
+			                           alert("传递对象失败");
+			                        }
+			                    })
+				}else{
+					 alert("验证码错误");
+				}	
+							
+			 });
+		 });
+		</script>
+	</body>
+</html>
