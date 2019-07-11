@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script>
+        var person={
+            musername : "user1",
+            mpassword : "123456"
+        };
+        var meeting={
+            conname : "DDdd",
+            coninfo : "omncd",
+            condate : "vonsdv",
+            conaddress : "sodbasc",
+            companyid : "1234",
+            conid : "123"
+        };
+       $.ajax({
+           url: "/login",
+           type: "POST",
+           contentType: "application/json;charset=utf-8",
+           data: JSON.stringify(person),
+           success: function (data) {
+               alert("登录成功："+data);
+           },
+           error: function () {
+               alert("创建失败");
+           }
+       });
+       $.ajax({
+           url: "/meeting/add",
+           type: "POST",
+           contentType: "application/json;charset=utf-8",
+           data: JSON.stringify(meeting),
+           success: function (data) {
+               $(".btn1").text(data);
+           },
+           error: function () {
+               $(".btn1").text("添加失败");
+       }
+       })
+    </script>
+</head>
+<body>
+    <button class = "btn1">登录</button>
+</body>
+</html>

@@ -1,0 +1,31 @@
+server:
+  port: 8090
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://cdb-do13zbda.bj.tencentcdb.com:10141/con
+    username: root
+    password: zxc789410
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  mail:
+    default-encoding: UTF-8
+    host: smtp.qq.com
+    username: 2834647668@qq.com
+    password: ixbjbffwudzndgid
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory
+            port: 465
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
