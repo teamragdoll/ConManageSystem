@@ -21,7 +21,7 @@
 		height: 80%;
 	}
 	.head{
-		margin-top: 30%;
+		margin-top: 50px;
 	}
 	.LRbutton{
 		margin-top: 50px;
@@ -76,7 +76,8 @@
 	            data: JSON.stringify(user),
 	                        success: function (data) {
 	                            if(data=="登录成功"){
-									//跳转页面															
+									//跳转页面
+									sessionStorage.setItem("username",user.musername);															
 									window.location.href="../meeting/index.html?uname="+user.musername;
 								}else if(data=="用户名或密码错误"){
 									//显示错误信息

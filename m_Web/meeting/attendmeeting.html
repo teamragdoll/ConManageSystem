@@ -1,7 +1,7 @@
  <!-- 2017302580270 王泽煜 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <head>
-<title>Javascript 二维码生成库：QRCode</title>
+<title>参加会议</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
 <script type="text/javascript" src="//cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">	
 <meta name="apple-mobile-web-app-capable" content="yes">	
 <meta name="apple-mobile-web-app-status-bar-style" content="black">	
-<meta name="format-detection" content="telephone=no">	
+<meta name="format-detection" content="telephone=no">
 <link rel="stylesheet" type="text/css" href="../css/style.css">
 <link rel="stylesheet" type="text/css" href="../css/title.css">
 <link rel="stylesheet" href="../layui/css/layui.css">
@@ -33,6 +33,9 @@
 	</script>
 	<script>
 		var username=UrlParam.paramValues("uname");
+		if(sessionStorage.getItem("username") == null){
+			window.location.href = "../login/login.html";
+		}
 		var conid=UrlParam.paramValues("id");
 		var codetext=username+" attend "+conid;
 	</script>
@@ -72,7 +75,7 @@
 			<img  alt="profile" id="myprofile"><p class="titletext" >参加会议</p>
 		</div>
 		<div align="center">
-			<h1 style="font-size: xx-large;color: chartreuse; font-weight: 900; margin-top: 40px;">请用此二维码入场</h1>
+			<h1 style="font-size: xx-large;color:#000000; font-weight: 900; margin-top: 60px;">请用此二维码入场</h1>
 		</div>
 		<div id="qrcode" style="width:100px; height:100px; margin-top:100px;" align="center"></div>
 		<div class="search">

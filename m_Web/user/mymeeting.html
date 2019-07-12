@@ -16,7 +16,10 @@
 		<script type="text/javascript" src="../js/funing.js"></script>
 	</head>
 	<script>
-		var username=UrlParam.paramValues("uname");		
+		var username=UrlParam.paramValues("uname");
+		if(sessionStorage.getItem("username") == null){
+			window.location.href = "../login/login.html";
+		}		
 	</script>
 	<script>
 		window.onload=function(){
@@ -32,6 +35,7 @@
 		function topersonalpage(){
 			window.location.href="../user/personalpage.html?uname="+username;
 		}
+		
 	</script>
 	<style>
 		.button3{
@@ -47,7 +51,10 @@
 			color:  #03A9F4;
 			font-size: xx-large;
 			font-weight: 900;
-		}		
+		}
+		#MyMeetingList{
+			margin-top: 5px;
+		}
 	</style>
 	<body>
 		<div class="title">

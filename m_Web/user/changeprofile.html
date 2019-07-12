@@ -3,7 +3,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>mytrophy</title>
+		<title>修改头像</title>
 		<meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">		
 		<meta name="apple-mobile-web-app-capable" content="yes">		
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">		
@@ -21,6 +21,9 @@
 			document.getElementById("myprofile").src = src1;
 		};
 		var username=UrlParam.paramValues("uname");
+		if(sessionStorage.getItem("username") == null){
+			window.location.href = "../login/login.html";
+		}
 		$("#img-change").click(function () {
 		$("#file").click();
 		})
@@ -63,10 +66,10 @@
 		         */
 		        processData: false,
 		        success: function (data) {
-		            alert("上传成功");
+		            alert(data);
 		        },
 		        error: function () {
-		            alert("上传失败！");
+		            alert("上传失败!");
 		        }
 		    });
 		}
@@ -101,7 +104,7 @@
 		  width: 200px;
 		  height: 200px;
 		  border: 2px solid #858585;
-		  margin-top: 30px;
+		  margin-top: 60px;
 		}
 		#imgshow{
 		  width: 100%;
@@ -120,6 +123,13 @@
 			margin-top: 30px;
 			
 		}
+		.tip{
+			font-size: x-large;
+			color: #000000;
+			margin-top: 35px;
+			margin-left: 10px;
+			margin-right: 10px;
+		}
 	</style>
 	<body>
 		<div class="title">
@@ -129,6 +139,7 @@
 			<button class="button1" onclick="toindex()"><i class="layui-icon layui-icon-menu-fill"></i></button><button class="button2" onclick="tomessage()"><i class="layui-icon layui-icon-reply-fill"></i></button><button class="button3" onclick="topersonalpage()"><i class="layui-icon layui-icon-friends"></i></button>
 		</div>
 		<div align="center">
+		<p class="tip" align="center">请选择一张类型为jpg且大小不超过10M的照片</p>
 		 <p id="box" >
 		    <img  id="imgshow" src="" alt=""/>
 		 </p>

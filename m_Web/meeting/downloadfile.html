@@ -17,13 +17,16 @@
 	<script type="text/javascript" src="../js/funing.js"></script>
 	<script>
 		var username=UrlParam.paramValues("uname");
+		if(sessionStorage.getItem("username") == null){
+			window.location.href = "../login/login.html";
+		}
 	</script>
 	<script>var conid=UrlParam.paramValues("id");</script>
 <style>
 	#meetinglist{
 		font-family: "youyuan";
 		margin-top: 5px;
-		margin-bottom: 80px;
+		margin-bottom: 50px;
 	}
 	#NewMeetingList{
 		font-family: "youyuan";
@@ -67,7 +70,9 @@
 		font-size: xx-large;
 		font-weight: 900;
 	}
-	
+	#filelist{
+		margin-top: 5px;
+	}
 </style>
 <script>
 	window.onload=function(){

@@ -17,6 +17,9 @@
 	</head>
 	<script>
 		var username = UrlParam.paramValues("uname");
+		if(sessionStorage.getItem("username") == null){
+			window.location.href = "../login/login.html";
+		}
 	</script>
 	<script>
 		function toindex() {
@@ -46,9 +49,12 @@
 				url: "http://42.159.11.72:8090/match/matchChange",
 				type: "POST",
 				contentType: "application/json;charset=utf-8",
-				data: JSON.stringify(usernameANDconid) //向后台传递用户名和会议id						
+				data: JSON.stringify(usernameANDconid), //向后台传递用户名和会议id
+				success: function () {
+				   window.location.href = "../meeting/meetingdetail.html?id=" + conid + "&uname=" + username; //页面跳转
+				}
 			})
-			window.location.href = "../meeting/meetingdetail.html?id=" + conid + "&uname=" + username; //页面跳转
+			// window.location.href = "../meeting/meetingdetail.html?id=" + conid + "&uname=" + username; //页面跳转
 		}
 
 		function delete1(conid) { //实现将会议状态从3变1.			
@@ -60,9 +66,12 @@
 				url: "http://42.159.11.72:8090/match/matchDelete",
 				type: "POST",
 				contentType: "application/json;charset=utf-8",
-				data: JSON.stringify(usernameANDconid)//向后台传递用户名和会议id						
+				data: JSON.stringify(usernameANDconid),//向后台传递用户名和会议id
+				success: function () {
+				  window.location.href = "message.html?id=" + conid + "&uname=" + username; //页面刷新
+				}
 			})
-			window.location.href = "message.html?id=" + conid + "&uname=" + username; //页面刷新 
+			 
 		}
 	</script>
 	<style>
@@ -91,6 +100,9 @@
 			font-family: "youyuan";
 			bottom: 14%;
 			left: 46%;
+		}
+		#TheMessageList{
+			margin-top: 5px;
 		}
 	</style>
 

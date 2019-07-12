@@ -18,6 +18,9 @@
 	</head>
 	<script>
 		var username=UrlParam.paramValues("uname");
+		if(sessionStorage.getItem("username") == null){
+			window.location.href = "../login/login.html";
+		}
 		// alert(username);
 	</script>
 	<script>
@@ -38,17 +41,34 @@
 		}
 	</script>
 	<script>
+		$.ajax({
+	    url: 'http://42.159.11.72:8090/user/getUserInfo/'+username,
+	    type: "GET",
+		contentType: "application/json;charset=utf-8",
+	    success: function (data) {
+			$("#mtel").val(data.mtel);
+			$("#companyid").val(data.companyid);
+			$("#position").val(data.mposition);
+			$("#address").val(data.maddress);
+	    },
+	    error: function (data) {
+	        $("#name").text("加载失败!!");
+	    }
+		})
+		
+	</script>
+	<script>
 	    $(document).ready(function(){				 
 			
 			 //完成验证码验证后传递对象
 		    $("#newuser").click(function(){
 		        var muserinfo={
 		             mtel      : document.forms["modifyinfo"]["mtel"].value,
-					 mcompanyid: document.forms["modifyinfo"]["mcompanyid"].value,
-					 mposition : document.forms["modifyinfo"]["mposition"].value,
-					 maddress  : document.forms["modifyinfo"]["maddress"].value
+					 mcompanyid: document.forms["modifyinfo"]["companyid"].value,
+					 mposition : document.forms["modifyinfo"]["position"].value,
+					 maddress  : document.forms["modifyinfo"]["address"].value
 					 // memail    : document.forms["modifyinfo"]["memail"].value
-		           };								 										
+		           };
 		      $.ajax({	
 		            url: "http://42.159.11.72:8090/user/changeUserInfo/" + username,
 		            type: "POST",
@@ -135,16 +155,17 @@
 		<div align="center">
 
 			<form id="modifyinfo">			
-				<input class="input" type="text" placeholder="请输入联系方式" id="mtel"><br>
-				<input class="input" type="text" placeholder="请输入所属公司" id="mcompanyid"><br>
-				<input class="input" type="text" placeholder="请输入公司职位" id="mposition"><br>
-				<input class="input" type="text" placeholder="请输入家庭地址" id="maddress"><br>
+				<!-- <input class="input" type="text" placeholder="请输入联系方式" id="mtel"><br> -->
+				<input class="input" type="text" placeholder="请输入联系方式" value="" id="mtel"><br>
+				<input class="input" type="text" placeholder="请输入所属公司" value="" id="companyid"><br>
+				<input class="input" type="text" placeholder="请输入公司职位" value="" id="position"><br>
+				<input class="input" type="text" placeholder="请输入家庭地址" value="" id="address"><br>
 				<!-- <input class="input" type="text" placeholder="请输入电子邮箱" id="memail"><br>
 				<input type="button" class="layui-btn layui-btn-lg layui-btn-radius layui-btn-normal" value="获取验证码" id="get"><br>
 				<input class="input" type="text" placeholder="请输入验证码" id="Code"><br> -->
 				<input type="button" class="layui-btn layui-btn-lg layui-btn-radius layui-btn-normal" value="完成" id="newuser">	  
 			</form>
-		</div>		
+		</div>
 			<!-- <script>
 			    $(document).ready(function(){				 
 					

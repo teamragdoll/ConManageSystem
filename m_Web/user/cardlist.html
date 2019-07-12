@@ -17,6 +17,9 @@
 	</head>
 	<script>
 		var username=UrlParam.paramValues("uname");
+		if(sessionStorage.getItem("username") == null){
+			window.location.href = "../login/login.html";
+		}
 		window.onload=function(){
 			src1="http://42.159.11.72:8090/myProfile/"+username+".jpg";
 			document.getElementById("myprofile").src = src1;
@@ -64,7 +67,10 @@
 			color:  #03A9F4;
 			font-size: xx-large;
 			font-weight: 900;
-		}		
+		}
+		#cardlist{
+			margin-top: 5px;
+		}
 	</style>
 	<body>
 		<div class="title">
@@ -91,10 +97,12 @@
 				contentType: "application/json;charset=utf-8",				
 				success: function (data) {
 					$.each(data, function (i, data){
+						if(data.musername == username){}else{
 						
 							cardlist+= "<button class=\"buttonlist\" onclick=\"window.location.href='../user/carddetail.html?id="+data.conid+"&uname="+data.musername+"'\">\n" +
 							                 data.mname +		                    
 							                 "</button>"
+						}
 						
 						var card = document.getElementById("cardlist");
 						card.innerHTML=cardlist;

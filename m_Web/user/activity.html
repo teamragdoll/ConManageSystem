@@ -3,7 +3,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>activity</title>
+		<title>活动</title>
 		<meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">	
 		<meta name="apple-mobile-web-app-capable" content="yes">		
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">		
@@ -32,6 +32,9 @@
 	</script>
 	<script>
 		var username=UrlParam.paramValues("uname");
+		if(sessionStorage.getItem("username") == null){
+			window.location.href = "../login/login.html";
+		}
 		// alert(username);
 	</script>
 	<style>
@@ -72,8 +75,8 @@
 			font-weight: 600;
 		}
 		.biaoti{
-			margin-top: 30px;
-			margin-bottom: 50px;
+			margin-top: 20px;
+			margin-bottom: 40px;
 		}
 		.neirong{
 			margin: 30px;

@@ -1,3 +1,4 @@
+<!-- 2017302580283 李彩彬 -->
 <!DOCTYPE html>
 <html>
 	<head>
@@ -17,23 +18,26 @@
 		<script>var conid=UrlParam.paramValues("id");</script>
 		<script>
 			var username=UrlParam.paramValues("uname");
+			if(sessionStorage.getItem("username") == null){
+				window.location.href = "../login/login.html";
+			}
 		</script>
-		<script>					
+		<script>		
+			var user = {
+				musername : String(username),
+				conid : String(conid)
+			}
 			$.ajax({
-				url: "http://42.159.11.72:8090/match/findMatchsByMusername/"+username,
-				type: "GET",
-				contentType: "application/json;charset=utf-8",						
+				url: "http://42.159.11.72:8090/match/getState",
+				type: "POST",
+				contentType: "application/json;charset=utf-8",	
+				data: JSON.stringify(user),
 				success: function(data) { //得到会议状态,包括会议名称,会议id,个人状态,会议状态. 						
-					$.each(data, function(i, data) {
-					if(conid==data.conid){
-						if(data.state>=2){							
-							document.getElementById('changeBut').innerHTML="查看二维码";
-						  }
-						 else if(data.state==1){
-							document.getElementById('changeBut').innerHTML="接收邀请"; 
-						  }
-		               }
-					});
+					if(data == "邀请未报名"){
+						document.getElementById('changeBut').innerHTML="接受邀请";
+					}else if(data === "已报名"){
+						document.getElementById('changeBut').innerHTML="查看二维码";
+					}
 				},
 				error: function(data) {
 					alert("获取状态信息失败");
@@ -108,7 +112,7 @@
 			border-radius: 12px;  
 			width: 80%;
 			margin-bottom: 50px;
-			margin-top: 100px;
+			margin-top: 30px;
 			margin-left: 10%;
 			
 		}
@@ -134,7 +138,7 @@
 				left: 13%;
 				color: #03A9F4;
 				font-size: xx-large;
-			} 
+			}
 	</style>
 	</head>
 	
@@ -151,13 +155,17 @@
 		<p id="conname"></p>
 		<br>
 		<br>
+		<br>
 	    <p id="condate"></p>
+		<br>
 		<br>
 		<br>
 		<p id="conadress"></p>
 		<br>
 		<br>
+		<br>
 		<P id="coninfo"></P>
+		<br>
 		<br>
 		<br>
 		</div>
