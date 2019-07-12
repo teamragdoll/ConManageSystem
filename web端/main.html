@@ -273,9 +273,8 @@
                 <h2 style="color:white">嘉宾修改</h2>
             </div>
             <div id="div22">
+                    <div id="addone" onclick="newp()"><font id="T2font1">点击邀请其他嘉宾</font></div><br>
                     <div id="div221">
-                            
-                            <div id="addone" onclick="newp()"><font id="T2font1">点击邀请其他嘉宾</font></div><br>
                         </div>
                         <div id="div222">
                             <table id="mytable" border="1" cellspacing="0">
@@ -391,7 +390,8 @@
                         contentType: "application/json;charset=utf-8",
                         success: function (data) {
                             alert("删除成功！");
-                            window.location.href="main.html?companyid="+companyId;
+                             window.location.href="main.html?companyid="+companyId;
+                            
                         },
                         error: function (data) {
                             alert("删除失败");
@@ -478,10 +478,11 @@
                                 alert("修改成功!");
 								window.location.href="main.html?companyid="+companyId;
                                 // background.style.display="none";
-                                document.getElementById("form1_name").value=form1_all.conname;
-                                document.getElementById("form1_simpleInfo").value=form1_all.coninfo;
-                                document.getElementById("form1_date").value=form1_all.condate;
-                                document.getElementById("form1_address").value=form1_all.conaddress;
+
+                                document.getElementById("form1_name").value=htmlEncode(form1_all.conname);
+                                document.getElementById("form1_simpleInfo").value=htmlEncode(form1_all.coninfo);
+                                document.getElementById("form1_date").value=htmlEncode(form1_all.condate);
+                                document.getElementById("form1_address").value=htmlEncode(form1_all.conaddress);
 
                             },
                             error: function(){
@@ -504,9 +505,21 @@
                 }
             close2.onclick = function close() {
                     background2.style.display = "none";
+                    demo();
+                    var qq=document.getElementById("div221");
+                    
+                     
+                        qq.innerHTML="";
+                        numb=0;
                 }
              close22.onclick = function close() {
                     background2.style.display = "none";
+                    demo();
+                    var qq=document.getElementById("div221");
+
+                     
+                        qq.innerHTML="";
+                        numb=0;
                 }
 
             window.onclick = function close(e) {
@@ -514,7 +527,7 @@
                         background2.style.display = "none";
                     }
             }
-
+    function demo(){   $(".contacts").attr("checked",false);}
 // 下面这部分是从数据库读联系人信息
 var aaaa="";
     $.ajax({
@@ -523,8 +536,8 @@ var aaaa="";
         contentType: "application/json;charset=utf-8",
         success: function (data) {
             $.each(data, function (i, data){
-                aaaa+="<tr><td><input type=\"checkbox\" class=\"contacts\" name=\"test\" value=\""+data.memail+"\"/>" +
-                    data.mname+"</td><td>邮箱:"+data.memail+"</td></tr>"
+                aaaa+="<tr><td><input type=\"checkbox\" class=\"contacts\" name=\"test\" value=\""+htmlEncode(data.memail)+"\"/>" +
+                    htmlEncode(data.mname)+"</td><td>邮箱:"+htmlEncode(data.memail)+"</td></tr>"
             });
             
             var mytab=document.getElementById("mytable");
@@ -550,6 +563,23 @@ var aaaa="";
                     }
 
                     // 下面是弹窗*2*提交申请，邀请
+
+                    function timer(time) {
+                            var btn = $("#popupBtn12");
+                            btn.attr("disabled", true);  //按钮禁止点击
+                            btn.val(time <= 0 ? "发送邀请" : ("" + (time) + "秒后可发送"));
+                            var hander = setInterval(function () {
+                                if (time <= 0) {
+                                    clearInterval(hander); //清除倒计时
+                                    btn.val("发送邀请");
+                                    btn.attr("disabled", false);
+                                    return false;
+                                } else {
+                                    btn.val("" + (time--) + "秒后可发送");
+                                }
+                            }, 1000);
+                        }
+
                     function fun() {   
                                       
                         var obj = document.getElementsByName("test");
@@ -575,14 +605,16 @@ var aaaa="";
                            b[info]=emailinfo.value;
                            info++;
                         }
-                        alert("邀请成功!");
+                        timer(3);
                         $.ajax({
                             url: "http://42.159.11.72:8090/sendMailtoVip",
                             type: "POST",
                             contentType: "application/json;charset=utf-8",
                             data:JSON.stringify(b),
                             success: function (data) {
-
+                            alert("邀请成功!"+data);
+                            
+                            function1_2_5();
                          },
                              error: function (data) {
                                  alert("系统繁忙，邀请失败!");
@@ -733,7 +765,7 @@ var aaaa="";
                         var vip=document.getElementById("textConPeople1");
 
                         $.each(data, function (i, data){
-                           person += data;
+                           person += data +" ";
                         });
                         vip.innerHTML=person;
                     },
@@ -747,7 +779,7 @@ var aaaa="";
                     contentType: "application/json;charset=utf-8",
                     success: function (data) {
                         var customer=document.getElementById("textConPeople2");
-                        customer.innerHTML=data;
+                        customer.innerHTML=data+"";
                     },
                     error: function (data) {
                         alert("加载失败");
@@ -777,9 +809,9 @@ var aaaa="";
                     contentType: "application/json;charset=utf-8",
                     success: function (data) {
                         // 下面是插入会议名称和简介
-                        comName=data.companyname;
-                        font1_2_4_1.innerHTML=data.companyname;
-                        text1_2_4_1.innerHTML=data.userinfo;
+                        comName=htmlEncode(data.companyname);
+                        font1_2_4_1.innerHTML=htmlEncode(data.companyname);
+                        text1_2_4_1.innerHTML=htmlEncode(data.userinfo);
                         //alert("加载成功！");
                     },
                     error: function (data) {
@@ -818,7 +850,7 @@ var aaaa="";
                     success: function (data) {
                         label1_2_4_2.style.display="none";
                         label1_2_4_1.style.display="block";
-                        text1_2_4_1.removeAttribute("readonly");
+                        text1_2_4_1.setAttribute('readonly',"readonly");
                         text1_2_4_1.setAttribute('style','border:solid 0px #00f;resize: none; ');
                     },
                     error: function (data) {
@@ -898,8 +930,8 @@ var aaaa="";
                     contentType: "application/json;charset=utf-8",
                     success: function (data) {
                         $.each(data, function (i, data) {
-                            contactitems+="<button class=\"contacts_items\" id=\""+data.musername+"\" onclick='' >姓名:"+data.mname+" " +
-                            "邮箱:"+data.memail+"</button>";
+                            contactitems+="<button class=\"contacts_items\" id=\""+data.musername+"\" onclick='' >姓名:"+htmlEncode(data.mname)+" " +
+                            "邮箱:"+htmlEncode(data.memail)+"</button>";
                             contactitemsdelete+="<button class=\"contactsdelete_items\" id=\""+data.musername+"\" onclick=''>删除-姓名:"+data.mname+" " +
                             "邮箱:"+data.memail+"</button>"
                         });
@@ -981,7 +1013,8 @@ var aaaa="";
             background2.style.display="none";
         }
 
-        function clickDeleteConference(){     
+        function clickDeleteConference(){    
+             
             confeenceList.style.backgroundColor="white";
             confeenceList.style.color="black";
             newConference.style.backgroundColor="white";
@@ -999,6 +1032,7 @@ var aaaa="";
             div1_2_6.style.display="none";
             background.style.display="none";
             background2.style.display="none";
+    
         }
 
         function clickMyInfo(){
