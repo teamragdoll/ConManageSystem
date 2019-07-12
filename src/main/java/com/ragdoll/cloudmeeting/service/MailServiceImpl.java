@@ -97,8 +97,10 @@ public class MailServiceImpl implements MailService {
             return results3 + "已参与会议" + results + "非本系统用户!";
         }else if((results != "") && (results3 == "")){
             return results + "非本系统用户!邮件已全部发送成功";
-        }else{
+        }else if((results3 != "") && (results == "")){
             return results3 + "已参与会议！";
+        }else{
+            return "";
         }
     }
 }
