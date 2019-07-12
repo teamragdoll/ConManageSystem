@@ -1,3 +1,5 @@
+//洪涛 2017302580282
+
 package com.ragdoll.cloudmeeting.service;
 
 import com.ragdoll.cloudmeeting.dao.muser;
@@ -13,12 +15,14 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
 
+    //根据用户名查找用户
     @Override
     public muser findUser(String username) {
         muser user = userDao.findByMusername(username);
         return user;
     }
 
+    //添加用户
     @Override
     public String addUser(muser user){
         try{
@@ -35,6 +39,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    //更改用户信息(密码)
     @Override
     public String changeInfo(muser user){
         userDao.save(user);

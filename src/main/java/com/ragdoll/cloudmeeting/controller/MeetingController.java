@@ -1,6 +1,9 @@
+//洪涛 2017302580282
+
 package com.ragdoll.cloudmeeting.controller;
 
 import com.ragdoll.cloudmeeting.dao.Meeting;
+import com.ragdoll.cloudmeeting.service.FileService;
 import com.ragdoll.cloudmeeting.service.MeetingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
@@ -17,6 +20,9 @@ public class MeetingController {
 
     @Autowired
     private MeetingService meetingService;
+
+    @Autowired
+    private FileService fileService;
 
 
 //    public List<Meeting> findAllMeetings(){
@@ -62,6 +68,7 @@ public class MeetingController {
     @ResponseBody
     public String deleteMeeting(@PathVariable("id") Integer id){
         String msg = meetingService.deleteMeeting(id);
+        fileService.deleteFile("D:/uploadfile/Meeting/meeting" + id);
         return msg;
     }
 

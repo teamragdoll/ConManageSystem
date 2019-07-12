@@ -1,3 +1,5 @@
+//洪涛 2017302580282
+
 package com.ragdoll.cloudmeeting.service;
 
 import org.springframework.stereotype.Service;
@@ -16,4 +18,7 @@ public interface FileService {
 
     //设置默认头像
     void setFirstProfile(String username);
+
+    //删除文件
+    void deleteFile(String path);
 }

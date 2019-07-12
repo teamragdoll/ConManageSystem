@@ -1,6 +1,7 @@
+//洪涛 2017302580282
+
 package com.ragdoll.cloudmeeting.controller;
 
-import com.ragdoll.cloudmeeting.dao.Meeting;
 import com.ragdoll.cloudmeeting.dao.MeetingFile;
 import com.ragdoll.cloudmeeting.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class FileController {
     public String uploadHeadPicture(@PathVariable String name,@RequestParam("file") MultipartFile file){
         String msg = fileService.saveHeadPicture(file,name);
         if(msg == "未检测到文件") return msg;
-        else if(msg == "文件不是图片") return "请上传一张jpg图片";
+        else if(msg == "文件不是jpg图片") return "请上传一张jpg图片";
         else if(msg == "图片保存成功") return "上传成功";
         else return "上传失败";
     }

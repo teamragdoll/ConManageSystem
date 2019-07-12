@@ -1,3 +1,5 @@
+//洪涛 2017302580282
+
 package com.ragdoll.cloudmeeting.service;
 
 import com.ragdoll.cloudmeeting.dao.Company;
@@ -15,12 +17,14 @@ public class CompanyServiceImpl implements CompanyService{
     @Autowired
     private CompanyDao companyDao;
 
+    //根据公司id查找公司信息
     @Override
     public Company findUser(String id){
         Company company = companyDao.findByCompanyid(id);
         return company;
     }
 
+    //判断数据库是否已存在邮箱
     @Override
     public String isExitEmail(String mail){
         List<Company> companies = companyDao.findAllByCompanyemail(mail);
@@ -31,6 +35,7 @@ public class CompanyServiceImpl implements CompanyService{
         }
     }
 
+    //添加公司信息
     @Override
     public String addCompany(Company company){
         try {
@@ -41,6 +46,7 @@ public class CompanyServiceImpl implements CompanyService{
         }
     }
 
+    //修改公司信息
     @Override
     public String changeCompanyInfo(Company c){
         Company company = companyDao.findByCompanyid(c.getCompanyid());

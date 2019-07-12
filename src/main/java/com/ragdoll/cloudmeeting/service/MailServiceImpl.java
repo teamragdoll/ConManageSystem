@@ -1,3 +1,5 @@
+//洪涛 2017302580282
+
 package com.ragdoll.cloudmeeting.service;
 
 import com.ragdoll.cloudmeeting.dao.*;
@@ -29,7 +31,6 @@ public class MailServiceImpl implements MailService {
 
     @Value("${spring.mail.username}")
     private String from;
-
 
     //发送邮件
     @Override
@@ -92,6 +93,12 @@ public class MailServiceImpl implements MailService {
                 }
             }
         }
-        return results3 + "已参与会议" + results + "非本系统用户!邮件已全部发送成功";
+        if((results != "") && (results3 != "")) {
+            return results3 + "已参与会议" + results + "非本系统用户!";
+        }else if((results != "") && (results3 == "")){
+            return results + "非本系统用户!邮件已全部发送成功";
+        }else{
+            return results3 + "已参与会议！";
+        }
     }
 }

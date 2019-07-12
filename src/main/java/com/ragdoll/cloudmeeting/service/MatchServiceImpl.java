@@ -1,3 +1,5 @@
+//洪涛 2017302580282
+
 package com.ragdoll.cloudmeeting.service;
 
 import com.ragdoll.cloudmeeting.dao.MatchDao;
@@ -15,6 +17,7 @@ public class MatchServiceImpl implements MatchsService {
     @Autowired
     private MatchDao matchDao;
 
+    //添加或修改会议参与详情
     @Override
     public String saveMatch(Matchs m){
         try {
@@ -36,6 +39,7 @@ public class MatchServiceImpl implements MatchsService {
 //        }
 //    }
 
+    //更改会议参与表会议状态
     @Override
     public String changeMatchCstateByConidAndName(Integer state,Integer cid,String musername){
         try {
@@ -60,16 +64,19 @@ public class MatchServiceImpl implements MatchsService {
 //        }
 //    }
 
+    //根据用户名查找会议参与表所有相关元组
     @Override
     public List<Matchs> findMatchsByMusername(String name){
         return matchDao.findAllByMusername(name);
     }
 
+    //根据会议id和用户名查找用户参与表
     @Override
     public Matchs findMatchByConidAndMusername(Integer id,String username){
         return matchDao.findByConidAndMusername(id,username);
     }
 
+    //删除会议参与表中内容
     @Override
     public String deleteMatch(Integer id,String username){
         try{
@@ -82,6 +89,7 @@ public class MatchServiceImpl implements MatchsService {
         }
     }
 
+    //查找用户参与表查找用户的用户参与状态
     @Override
     public String getState(Integer conid,String username){
         Matchs matchs = matchDao.findByConidAndMusername(conid, username);
@@ -94,6 +102,7 @@ public class MatchServiceImpl implements MatchsService {
         }
     }
 
+    //根据会议id和参与状态查找用户参与表
     @Override
     public List<Matchs> findByConidAndState(Integer conid,Integer state){
         return matchDao.findAllByConidAndState(conid,state);
