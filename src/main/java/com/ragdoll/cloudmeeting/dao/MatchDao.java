@@ -24,4 +24,7 @@ public interface MatchDao extends JpaRepository<Matchs,MatchKY> {
     @Transactional
     void deleteByConidAndMusername(Integer id,String name);
 
+    @Transactional
+    void deleteByConidAndState(Integer conid,Integer state);
+
 }

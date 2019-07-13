@@ -53,6 +53,7 @@ public class MeetingServiceImpl implements MeetingService {
     public String changeMeeting(Meeting m) {
         try {
             meetingdao.save(m);
+            matchDao.deleteByConidAndState(m.getConid(),1);
             matchDao.update(2,m.getConid());
             return "修改成功";
         }catch(Exception e){
