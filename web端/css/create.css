@@ -1,0 +1,52 @@
+/*此部分由2017302580059 蒋加尧完成*/
+#newinfo table{
+    height: 40vh;
+    width: 50vw;
+    text-align: center;
+    position: fixed;
+    left: 28%;
+    top: 35%;
+    color: white;
+}
+#newinfo h3{
+    cursor: default;
+}
+#newcon{
+    cursor: pointer;
+
+    outline:none;
+    height:4vh;
+    width: 8vw;
+    position: fixed;
+    left: 47%;
+    top: 85%;
+    background-color: silver;
+    color: white;
+}
+#newcon:hover{
+    background-color: gray;
+}
+#div1_2_2_1{
+    box-shadow: 3px 3px 8px rgba(8, 10, 14, 0.31);
+    height: 40vh;
+    width: 50vw;
+    background-color: rgb(16,98,84);
+    position: fixed;
+    left: 30%;
+    top:35%;
+}
+#div1_2_2_2{
+    height: 5vh;
+    width: 5vw;
+    background-image: url("../image/sanjiaoxing1.png");
+    background-size: 65%;
+    background-repeat: no-repeat;
+    position: fixed;
+    left: 77%;
+    top:30%;
+}
+.newtext{
+    background-color: #eeeeee;
+    border: none;
+    width: 45%;
+}

@@ -1,0 +1,312 @@
+/*此部分由2017302580059 蒋加尧 与 2017302580058 章昊完成*/
+
+/* #w:hover{
+    background-color: red;
+}
+#w:active{
+    background-color:purple;
+}
+#w{
+    background-color: black;
+} */
+* {
+    padding: 0;
+    margin: 0;
+  }
+body{
+    height: 100vh;
+    width: 100vw;
+    /* display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgb(16,98,84); */
+    background-image: url("../image/cs4.jpeg");
+    background-size: cover; 
+
+}
+#div01{
+    background-color: rgba(255,255,255,0.86);
+    /* background-color: white; */
+    position: fixed;
+    top: 9vh;
+    left: 13vw;
+    height: 91vh;
+    width: 74vw;
+}
+
+#div1_1{
+    position: fixed;
+    top: 9vh;
+    left: 23vw;
+    background-color: red;
+}
+
+#div1_2{
+    background-color: rgb(244,244,244);
+    height: 75vh;
+    width: 54vw;
+    position: fixed;
+    top: 25vh;
+    left: 23vw;
+    overflow:auto;
+}
+
+
+.btn_top{
+    position: fixed;
+    /* top: 10vh; */
+    cursor: pointer;
+    border: 0px;
+    outline:none;
+     width: 12vw;
+     /* padding-left:2vw; */
+    height:11.5vh; 
+    
+}
+
+#btntop1{
+    background-color: rgb(16,98,84);
+    color: white;
+}
+#btntopfont1{
+    
+    left: 26vw;
+}
+#btntop2{
+    background-color: rgb(255, 255, 255);
+    left: 37vw;
+    color: rgb(0, 0, 0);
+}
+#btntopfont2{
+    
+    left: 40vw;
+}
+#btntop3{
+    background-color: rgb(255, 255, 255);
+    left: 51vw;
+    color: rgb(0, 0, 0);
+}
+#btntopfont3{  
+    left: 54vw;
+}
+
+#btntop4{
+    background-color: rgb(255, 255, 255);   
+    left: 65vw;
+    color: rgb(0, 0, 0);
+}
+#btntopfont4{
+    
+    left: 68vw;
+}
+
+#changepass{
+    font-size: small;
+    font-family: STKaiti;
+    color: white;
+    position: fixed;
+    /*top: 4%;*/
+    right: 4%;
+}
+
+#backl{
+    font-size: small;
+    font-family: STKaiti;
+    color: white;
+    position: fixed;
+    right: 1%;
+}
+
+
+
+
+
+
+
+
+
+
+#div1_2_1{
+    /* display: none; */
+}
+#div1_2_2{
+    display: none;
+}
+#div1_2_3{
+    display: none;
+}
+
+
+
+
+.arrange{
+    box-shadow: 3px 3px 8px rgba(8, 10, 14, 0.31);
+    border: 1px solid aliceblue;
+    width:25.7%;
+    height: 32%;
+    text-align: center;
+    background-color: white;
+    position: relative;
+    float: left;
+    margin-left: 6%;
+    margin-top: 5%;
+    padding: 15px;
+    outline:none;
+    overflow: hidden;  /*溢出隐藏*/
+    text-overflow: ellipsis; /*以省略号...显示*/
+    white-space: nowrap;  /*强制不换行*/
+}
+.arrange2{
+    box-shadow: 3px 3px 8px rgba(8, 10, 14, 0.31);
+    border: 1px solid aliceblue;
+    width:25.7%;
+    height: 32%;
+    text-align: center;
+    background-color: darkgray;
+    position: relative;
+    float: left;
+    margin-left: 6%;
+    margin-top: 5%;
+    outline:none;
+    padding: 15px;
+    overflow: hidden;  /*溢出隐藏*/
+    text-overflow: ellipsis; /*以省略号...显示*/
+    white-space: nowrap;  /*强制不换行*/
+}
+.arrange:hover{
+    background-color: silver;
+}
+.arrange2:hover{
+    background-color: gray;
+    background-size: 250px;
+}
+
+
+
+
+
+/* 以1_2_4开头的都是个人中心相关的 */
+#div1_2_4{
+    display: none;
+}
+#img1_2_4_1{
+	
+    border-radius: 50%;
+    border:solid 4px rgb(16,98,84);
+    /* rgb(231, 143, 83) */
+    position: fixed;
+    left: 25vw;
+    top:28vh;
+    width: 10vw;
+    height:10vw;
+}
+@-webkit-keyframes mymymy
+{
+0% {bottom: 4vh;}
+
+50% {bottom: 2vh;}
+
+100%{
+    bottom: 4vh;}
+}
+#img1_2_4_2{
+    cursor: pointer;
+    -webkit-animation:mymymy 1.6s infinite;    
+    position: fixed;
+    bottom: 12vh;
+    left: 48vw;
+    width: 3%;
+    height: 5%;
+}
+#div1_2_4_1{
+    /* display: none; */
+    position: fixed;
+    right: 21vw;
+    background-color: rgb(16,98,84);
+    background-image: url("../image/sanjiaoxing.png");
+    /* background-position-x: 37.1vh;
+    background-position-y: 33.4vh;
+    background-size: 115.5%; */
+    /* background-repeat: no-repeat; */
+    background-position-x: 26.7vw;
+    background-position-y: 62.3vh;
+    background-size: 157%;
+    color: white;
+    width: 42vw;    
+    height: 18vh;
+    top:39vh;
+    box-shadow: 5px 5px 2px #888888;
+}
+#div1_2_4_2{
+    position: fixed;
+    right:21vw;
+    top:34vh;
+    background-image: url("../image/sanjiaoxing1.png");
+    /* background-repeat: no-repeat; */
+    background-position-x: 30vh;
+    background-position-y: 49.5vh;
+    background-size:195%;
+    width: 2vw;    
+    height: 2.5vw;
+    
+}
+#font1_2_4_1{
+    font-size: 3vmin;
+    position: fixed;
+    top:32vh;
+    left: 40vw;
+    color: rgb(16,98,84);
+
+}
+#font1_2_4_2{
+    cursor: default;
+    font-size: 3vmin;
+    position: fixed;
+    top:39vh;
+    color: white;
+    left: 40vw;
+}
+#text1_2_4_1{
+    border:0px;
+    outline:none;
+    size:fixed;
+    resize: none;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    width: 20vw;
+    background-color: rgb(16,98,84);
+    color: white;
+    position: fixed;
+    top: 41.5vh;
+    right: 31vw;
+    font-size: 2.5vh;
+    height: 13vh;
+}
+#label1_2_4_1{
+    cursor: pointer;
+    position: fixed;
+    top: 50vh;
+    right: 26vw;
+}
+#label1_2_4_2{
+    cursor: pointer;
+    display:none;
+    position: fixed;
+    top: 50vh;
+    right: 26vw;
+}
+
+.items{
+    background-size: cover;
+    outline:none;
+    margin-top: 2px; 
+    height: 8vh;
+    width: 100%;
+    background-color: rgb(111,111,111)
+}
+.btntop_font{
+    position: fixed;
+    top: 11vh;
+}
+

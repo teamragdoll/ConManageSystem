@@ -1,0 +1,272 @@
+/*章昊2017302580058*/
+
+/*弹窗*1*样式*/
+#background {
+	display: none;
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,0.5);
+}
+#div1 {
+	background:#eeeeee;
+	width: 50%;
+	z-index: 1;/*用于表示元素显示的优先级*/
+    margin: 2% auto;
+    margin-top: 10vh;
+}
+
+#div2 {
+	background:#eeeeee;
+	margin: auto;
+	height: 80%;
+	padding: 0 20px;
+}
+
+#close {
+	padding: 5px;
+	background: rgb(16,98,84);
+}
+
+#close-button {
+	float: right;
+	font-size: 30px;
+}
+
+
+#foot {
+	padding: 5px 0;
+	text-align: center;
+	background: rgb(16,98,84);
+	color: white;
+}
+
+.popupBtn{
+    background-color: coral;
+    width: 100px;
+    height: 30px;
+    margin-left: 5%;
+}
+#div3{
+    height: 65vh;
+}
+#close h2{
+    color: white;
+}
+.text1{ 
+    margin: 5px;
+    width: 40vw;
+    height: 80px;
+    position: fixed;
+    left: 33vw;
+}
+#form1_name{
+    top:19vh;
+}
+#form1_simpleInfo{
+    top:32vh
+}
+#form1_date{
+    top:45vh;
+}
+#form1_address{
+    top:58vh;
+}
+.T1text{
+    position: fixed;
+    left:27vw;
+    font-size: 2.5vh;
+}
+#T1text1{
+    top:22vh;
+}
+#T1text2{
+    top: 36vh;
+}
+#T1text3{
+    top: 50vh;
+}
+#T1text4{
+    top:62vh;
+}
+
+/*弹窗*2*样式*/
+#background2 {
+	display: none;
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(78, 70, 66, 0.5);
+}
+#div12 {
+
+	
+	width: 50vw;
+	z-index: 1;/*用于表示元素显示的优先级*/
+    margin: 20vh auto;
+    height: 60vh;
+
+}
+
+#div22 {
+	/* background:#eeeeee; */background-image: url("../image/shuangtixing.png");
+	margin: auto;
+	height: 100%;
+	padding: 0 20px;
+}
+#div32{
+	/*overflow: scroll;*/   
+}
+
+#close2 {
+	padding: 5px;
+	background: rgb(16,98,84);
+}
+
+#close-button2 {
+	float: right;
+	font-size: 30px;
+}
+
+#foot2 {
+    padding: 5px 0;
+    /* margin-top:0%; */
+	text-align: center;
+	background: rgb(16,98,84);
+	color: white;
+}
+
+.contacts{
+	/* -webkit-appearance: none;   */
+	
+
+}
+#div221{
+	width: 21%;
+    height: 45%;
+    position: absolute;
+    left: 30%;
+    background-color: rgb(244,244,244);
+    overflow:auto
+
+}
+#addone{
+	background-color: rgb(16,98,84);
+	position: fixed;
+	top: 30vh;
+	left: 19vw;
+	height: 4.5vh;
+	width:10vw;
+	box-shadow: 3px 3px 2px #524f4f;
+	border-radius: 10%;
+}
+#T2font1{
+	position: fixed;
+	left: 20vw;
+	top: 30.7vh;
+	color: white;
+}
+#div222{
+    width: 20%;
+    height: 45%;
+    position: absolute;
+	left: 55%;
+	top:30%;
+    background-color: rgb(232,232,232);
+    overflow:auto
+}
+#mytable{
+
+}
+
+
+
+/*弹窗*3*样式*/
+#background3{
+	display: none;
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+}
+#background3div0{
+	color: white;
+	border: 1px solid #CDC28D;
+	background-color: rgb(16,98,84);
+	width: 35.6vw;
+	height: 20vh;
+	position: fixed;
+	top:28vh;
+	left: 32.5vw;
+	overflow:auto
+}
+
+#background3div1{
+	background-color: rgb(16,98,84);
+	position: fixed;
+	top: 50.5vh;
+	left:32.5vw;
+	width: 25vw;
+
+}
+#backgroundform1{
+	color:white;
+	height:100px;
+}
+#file1{
+	border: 1px solid #CDC28D; /* 输入框表框颜色*/
+	background-color: rgb(16,98,84); /* 输入框背景颜色*/
+	height: 15vh; /*输入框高度*/
+	width: 35vw; /*输入框宽度*/
+	padding-top: 4px; /*输入框里的文字和输入框上边之间的距离（因为输入框比较高，输入的字不是居中的，所以设定此样式）*/
+	font-family: Arial, Helvetica, sans-serif; /*输入框文字类型*/
+	font-size: 12px; /*输入框内文字大小*/
+	padding-left: 10px; /*输入框里的文字和输入框左边之间的距离*/
+}
+#submit1{
+	position: fixed;
+	top: 61vh;
+	left:52vw;
+	color: white;
+	border: 1px solid #CDC28D; 
+	background-color: rgb(199, 114, 18);  
+	height: 3.5vh; 
+	width: 7vw; 
+	padding-top: 3px; 
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px; 
+	padding-left: 10px; 
+}
+#closebutton3{
+	position: fixed;
+	top: 61vh;
+	left:42vw;
+	color: white;
+	border: 1px solid #CDC28D; 
+	background-color: rgb(199, 114, 18); 
+	height: 3.5vh; 
+	width: 7vw; 
+	padding-top: 3px; 
+	font-family: Arial, Helvetica, sans-serif; 
+	font-size: 12px;
+	padding-left: 10px; 
+}
+/* body{ font-size:14px;}
+input{ vertical-align:middle; margin:0; padding:0}
+.file-box{ position:relative;width:340px}
+.txt{ height:22px; border:1px solid #cdcdcd; width:180px;}
+.btn{ background-color:#FFF; border:1px solid #CDCDCD;height:24px; width:70px;}
+.file{ 
+	position:absolute;
+	 top:0;
+	  right:80px;
+	   height:24px;
+		filter:alpha(opacity=0);
+		opacity: 0;
+		width:260px } */

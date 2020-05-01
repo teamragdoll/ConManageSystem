@@ -1,0 +1,1100 @@
+
+<!--此部分由 2017302580058 章昊 与 2017302580059 蒋加尧 共同完成！-->
+
+<!--  目录
+会议中心——div1-2-1  ->  会议详情1-2-5  
+新建会议——div1-2-2
+删除会议——div1-2-3
+个人中心——div1-2-4  ->  联系人列表1-2-6
+弹窗1 -> 修改会议详情——backgroung1
+弹窗2 -> 修改嘉宾——background2
+弹窗3 -> 上传资料——background3 
+
+基本布局在本html的开头
+基础美化放在UItest.css中，还包含每个部分可见与不可见的设置
+3个弹窗美化放在simpleInfo.css中
+1-2-1的美化是函数写的瀑布流
+1-2-3,1-2-4美化在UItest.css中
+1-2-2美化在create.css中
+1-2-5美化在1-2-5.css中
+1-2-3美化在1-2-6.css中
+
+代码段目录
+<html>
+    1.HTML本身：div1-2-1~1-2-4
+    2.联系人列表 div1-2-6
+    3.会议详情 div1-2-5
+    4.弹窗1background  修改会议详情
+    5.弹窗2background2 修改嘉宾
+    6.弹窗3background3 上传资料  
+</html>
+<script>
+    7.会议中心载入信息脚本
+    8.删除会议的脚本
+    9.创建会议的脚本
+    9.弹窗 1 的按钮事件
+    10.弹窗 1 提交信息
+    11.弹窗 2 的按钮事件
+    12.弹窗 2 提交信息->邀请其他人
+    13.弹窗 3 按钮事件
+    14.点击查看会议详情 
+    15.会议详情界面加载时请求信息 包括网页和弹窗预设信息插入
+    16.个人中心加载请求信息
+    17.个人中心点击修改资料
+    18.个人中心查看联系人 1-2-6
+    17.顶部按钮点击跳转事件
+</script>
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,intatle-scale=1.0">
+    <meta http-equiv="X-UA-Compatitle" content="ie=edge">
+    <title>多客户端云会议系统</title>
+    <!--关联.css文件-->
+    <link rel="stylesheet" href="css/UItest.css" type="text/css">
+    <link rel="stylesheet" href="css/1_2_5.css" type="text/css">
+    <link rel="stylesheet" href="css/1_2_6.css" type="text/css">
+    <link rel="stylesheet" href="css/smpInfo.css" type="text/css">
+    <link rel="stylesheet" href="css/create.css" type="text/css">
+    <!-- 关联图标 -->
+    <link href="image/bitbug_favicon.ico" rel="icon" type="image/x-ico">
+    <!-- 关联jquery库 -->
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script src="jump.js"></script>
+
+</head>
+
+<body>
+    <div id="div0">
+        <a id="backl" href="signin.html">退出</a>
+        <a id="changepass" href="changepassword.html">修改密码</a>
+        <!-- <button id="w">哈哈</button> -->
+        <div id="div01">
+            <!-- 下面这个div用来装顶部按钮 -->
+            <div id="div1_1">
+                <div class="btn_top" id="btntop1" onclick="clickConferenceList()"><font class="btntop_font" id="btntopfont1">会议中心</font></div>
+                <div class="btn_top" id="btntop2" onclick="clickNewConference()"><font class="btntop_font" id="btntopfont2">新建会议</font></div>
+                <div class="btn_top" id="btntop3" onclick="clickDeleteConference()"><font class="btntop_font" id="btntopfont3">删除会议</font></div>
+                <div class="btn_top" id="btntop4" onclick="clickMyInfo()"><font class="btntop_font" id="btntopfont4">个人中心</font></div>
+            </div>
+            <!-- 下面这个div用来装第三层颜色，内容,会议 -->
+            <div id="div1_2">
+                <!-- 会议中心 -->
+                <div id="div1_2_1">
+                    <!-- <div class="items" id="item1"></div>
+                    <div class="items" id="item2"></div>
+                    <div class="items" id="item3"></div>
+                    <div class="items" id="item4"></div>
+                    <div class="items" id="item5"></div>
+                    <div class="items" id="item6"></div>
+                    <div class="items" id="item7"></div> -->
+                </div>
+                <!-- 新建会议 -->
+                <div id="div1_2_2">
+                    <div id="div1_2_2_1"></div>
+                        
+                    <div id="div1_2_2_2"></div>
+                    <form id="newinfo">
+                        <table>
+                            <tr>
+                                <td><h3>会议名称</h3></td>
+                                <td><input type="text" id="info1" style="height: 3.1vh;resize: none" class="newtext"></td>
+                            </tr>
+                            <tr>
+                                <td><h3>简介</h3></td>
+                                <td><textarea id="info2" style="height: 9vh;resize: none" class="newtext"></textarea> </td>
+                            </tr>
+                            <tr>
+                                <td><h3>日期</h3></td>
+                                <td><input type="text" id="info3" style="height: 3.1vh;resize: none" class="newtext"></td>
+                            </tr>
+                            <tr>
+                                <td><h3>参会地点</h3></td>
+                                <td><input type="text" id="info5" style="height: 3.1vh;resize: none" class="newtext"></td>
+                            </tr>
+                        </table>
+                    </form>
+                    <button id="newcon" onclick="createOne()">创建会议</button>                    
+                </div>
+
+                <!-- 删除会议 -->
+                <div id="div1_2_3">
+                    
+                </div>
+
+                <!-- 个人中心 -->
+                <div id="div1_2_4">
+                    <img src="image/catface.jpg" id="img1_2_4_1"/>
+                    <!-- 下面的font是昵称 -->
+                    <font id="font1_2_4_1">
+                            
+                        </font>
+                    <div id="div1_2_4_1">
+                        <font id="font1_2_4_2">
+                            简介信息:
+                        </font>
+                        
+                        <textarea readonly="readonly" id="text1_2_4_1" rows="5">
+                        </textarea>
+                        <label  id="label1_2_4_1" onclick="edit()">✎edit</label>
+                        <label  id="label1_2_4_2" >↑save</label>
+                        <img src="image/shuangjiantoukou2.png" alt="联系人" id="img1_2_4_2" onclick="seeContacts()">
+
+                    <!-- 下面这个是小三角形    -->
+                    </div>
+                    <div id="div1_2_4_2"></div>
+                </div>
+
+                <!-- 联系人列表 -->
+                <div id="div1_2_6" class="div1_2_6A">
+                    <h4 style="margin-top: 5%">公司联系人</h4>
+                        <img src="image/shuangjiantoukou.png" alt="返回" id="img1_2_6_1" onclick="closeContacts()">
+                        <!--<div id="btn1_2_6_1" onclick="toDeleteContacts()">删除联系人</div>-->
+                        <div id="div1_2_6_1"></div>
+                        <div id="div1_2_6_2"></div>
+
+                </div>
+
+                <!-- 会议详情 -->
+                <div id="div1_2_5">
+                    <!-- div5是个灰色三角形 -->
+                    <div id="div5" style="display:none"></div>
+
+                    <div class="title1_2_5" id="conName">
+                        <font class="font1_2_5" id="font1_2_5_1">
+                            会议名称：
+                        </font>
+                    </div>
+                    <font class="text" id="textConName"> </font>
+
+                    <div class="title1_2_5" id="conSimpleInfo">
+                        <font class="font1_2_5" id="font1_2_5_2">
+                            会议简介：
+                        </font>
+                    </div>
+                    <div class="text" id="textConSimpleInfo"> </div>
+
+                    <div class="title1_2_5" id="conDate">
+                        <font class="font1_2_5" id="font1_2_5_3">
+                            开会日期：
+                        </font>
+                    </div>
+                    <font class="text" id="textConDate"> </font>
+
+                    <div class="title1_2_5" id="conAddress">
+                        <font class="font1_2_5" id="font1_2_5_4">
+                            开会地点：
+                        </font>
+                    </div>
+                    <font class="text" id="textConAddress"> </font>
+
+                    <div class="title1_2_5" id="conPeople">
+                        <font class="font1_2_5" id="font1_2_5_5">
+                            报名情况：
+                        </font>
+                    </div>
+                    <div class="text" id="textConPeople1"></div>
+                    <div class="text" id="textConPeople2"></div>
+                    <font id="font1_2_5_7">参会人员:</font>
+                    <font id="font1_2_5_8">已邀人员:</font>
+
+                    
+
+
+                    <div class="title1_2_5" id="conState">
+                        <font class="font1_2_5" id="font1_2_5_6">
+                            会议状态：
+                        </font>
+                    </div>
+                    <font class="text" id="textConState"></font>
+
+                    <input id="buttonChangeInfo" type="button" value="修改信息" onclick="show()" 
+                        onmouseover="this.style.backgroundPosition='left -30px'"
+                        onmouseout="this.style.backgroundPosition='left top'">
+                    <input id="buttonChangePeople" type="button" value="发起邀请" onclick="show2()"
+                        onmouseover="this.style.backgroundPosition='left -30px'"
+                        onmouseout="this.style.backgroundPosition='left top'">
+                    <input id="buttonUpFile" type="button" value="上传资料" onclick="show3()"
+                        onmouseover="this.style.backgroundPosition='left -30px'"
+                        onmouseout="this.style.backgroundPosition='left top'">
+                    
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 会议详情界面弹窗*1*内容开始 -->
+    <div id="background" class="back">
+        <div id="div1" class="content">
+            <div id="close">
+                <span id="close-button">×</span>
+                <h2>信息修改</h2>
+            </div>
+            <div id="div2">
+                <form id="form1">
+                    <div id="div3">
+                        <font class="T1text" id="T1text1">会议名称:</font>
+                        <textarea class="text1" name="name" rows="10" cols="30" id="form1_name">msg</textarea>
+                        <br>
+                         <font class="T1text" id="T1text2">会议简介:</font>
+                        <textarea class="text1" name="name" rows="10" cols="30" id="form1_simpleInfo">msg</textarea>
+                        <br>
+                         <font class="T1text" id="T1text3">会议日期:</font>
+                        <textarea class="text1" name="name" rows="10" cols="30" id="form1_date">msg</textarea>
+                        <br> 
+                        <font class="T1text" id="T1text4">会议地点:</font>
+                        <textarea class="text1" name="name" rows="10" cols="30" id="form1_address">msg</textarea>
+                        <br>
+    
+    
+                    </div>            
+                </form>
+                <div id="foot">
+                        
+                        <!-- <input type="submit" id="popupBtn1" class="popupBtn" value="保存草稿" onclick=""> -->
+                        <button id="popupBtn2" class="popupBtn" >保存并发布</button>
+                    </div>
+            </div>
+        </div>
+    </div>
+    <!-- 会议详情界面弹窗*1*内容结束 -->
+
+    <!-- 会议详情界面弹窗*2*内容开始 -->
+    <div id="background2" class="back">
+        <div id="div12" class="content">
+            <div id="close2">
+                <span id="close-button2">×</span>
+                <h2 style="color:white">嘉宾修改</h2>
+            </div>
+            <div id="div22">
+                    <div id="addone" onclick="newp()"><font id="T2font1">点击邀请其他嘉宾</font></div><br>
+                    <div id="div221">
+                        </div>
+                        <div id="div222">
+                            <table id="mytable" border="1" cellspacing="0">
+                            </table>
+                        </div>
+
+                <div id="div32"></div>
+            </div>
+            <div id="foot2">
+                <input type="button" id="close-button22" class="popupBtn" value="取消">
+                <input type="submit" id="popupBtn12" class="popupBtn" value="邀请" onclick="fun()">
+        
+            </div>
+        </div>
+    </div>
+    <!-- 会议详情界面弹窗*2*内容结束 -->
+
+    <!-- 会议详情界面弹窗*3*内容开始 -->
+     <div id="background3" class="back">
+         <div id="background3div0">已上传文件：<br></div>
+         <div id="background3div1">
+            <form id="backgroundform1"  method="POST" action="http://42.159.11.72:8090/meetingFile/" enctype="multipart/form-data" target="hidden_frame">
+                 <input id="file1" type="file" name="file" />
+                 <br>
+                 <input id="submit1" onclick="postData()" type="submit" value="上传文件"/>
+             </form>
+             <button id="closebutton3">返回</button>
+
+             <iframe name="hidden_frame" style="display: none"></iframe>
+
+
+             <!-- <div class="file-box">
+                <form action="http://192.168.137.1:8090/file/upload" method="post" enctype="multipart/form-data">
+                <input type='text' name='textfield' id='textfield' class='txt' />
+                <input type='button' class='btn' value='浏览...' />
+                <input type="file" name="fileField" class="file" id="fileField" size="28" onchange="document.getElementById('textfield').value=this.value" />
+                <input type="submit" name="submit" class="btn" value="上传" />
+                </form>
+                <button id="closebutton3">返回</button>
+                </div> -->
+             
+         </div>
+            
+        </div>   
+    <!-- 会议详情界面弹窗*3*内容结束 -->
+
+
+
+
+    <!-- 下面是会议中心载入信息的脚本 -->
+    <script>
+        function htmlEncode (str) {
+            var ele = document.createElement('span');
+            ele.appendChild( document.createTextNode( str ) );
+            return ele.innerHTML;
+        }
+        //解析
+        function htmlDecode (str) {
+            var ele = document.createElement('span');
+            ele.innerHTML = str;
+            return ele.textContent;
+        }
+    </script>
+    <script>
+    var companyId=UrlParam.paramValues("companyid");
+    if(sessionStorage.getItem("username") == null){
+        window.location.href = "signin.html";
+    }
+    // alert(companyId);
+    
+
+            var a="";
+            var b="";
+            $.ajax({
+                url: "http://42.159.11.72:8090/meeting/findByCId/"+companyId,
+                type: "GET",
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    $.each(data, function (i, data){
+
+                        data.conname=htmlEncode(data.conname);
+                        data.condata=htmlEncode(data.condate);
+                        data.conaddress=htmlEncode(data.conaddress);
+                        data.coninfo=htmlEncode(data.coninfo);
+                        a+= "<button class=\"arrange\" id=\""+data.conid+"\" onclick=\"seeMoreInfo()\">\n" +
+                            "            会议名称："+ data.conname+ "<br><br>\n" +
+                            "            日期："+data.condata+ "<br><br>\n" +
+                            "            地点："+data.conaddress+ "<br><br>\n" +
+                            "            简介："+ data.coninfo+ "<br>\n" +
+                            "        </button>";
+                        b+= "<button class=\"arrange2\" id=\""+data.conid+"\" onclick='deleteCon(this)'><h2>删除</h2><br>会议名称:"+data.conname+"" +
+                            "<br><br>日期:"+data.condate+"<br><br>地点:"+data.conaddress+"</button>"
+                    });
+                    var meeting = document.getElementById("div1_2_1");
+                    meeting.innerHTML=a;
+                    meeting=document.getElementById("div1_2_3");
+                    meeting.innerHTML=b;
+                },
+                error: function (data) {
+                    alert("数据加载失败");
+                }
+            })
+    
+        </script>
+
+        <!-- 下面是删除会议的脚本 -->
+        <script>
+                function deleteCon(btn) {
+                    $(document).ready(function(){
+                    $.ajax({
+                        url: "http://42.159.11.72:8090/meeting/deleteMeeting/" +btn.id,
+                        type: "GET",
+                        contentType: "application/json;charset=utf-8",
+                        success: function (data) {
+                            alert("删除成功！");
+                             window.location.href="main.html?companyid="+companyId;
+                            
+                        },
+                        error: function (data) {
+                            alert("删除失败");
+                        }
+                    })
+                    });
+                }
+            </script>
+
+            <!-- 下面是创建会议的脚本 -->
+            <script>
+                function createOne() {
+                    $(document).ready(function () {
+                        var one = {
+                            conname: document.forms["newinfo"]["info1"].value,
+                            coninfo: document.forms["newinfo"]["info2"].value,
+                            condate: document.forms["newinfo"]["info3"].value,
+                            conaddress: document.forms["newinfo"]["info5"].value,
+                            companyid: parseInt(companyId),
+                        };
+                        $.ajax({
+                            url: "http://42.159.11.72:8090/meeting/add",
+                            type: "POST",
+                            contentType: "application/json;charset=utf-8",
+                            data: JSON.stringify(one),
+                            success: function (data) {
+                                alert("创建成功");
+								window.location.href="main.html?companyid="+companyId;
+                            },
+                            error: function (data) {
+                                alert("创建失败");
+                            }
+                        })
+                    });
+
+                }
+            </script>
+
+
+    <!-- 下面是弹窗*1*按钮事件 -->
+    <script>
+        var close = document.getElementById('close-button');
+        var background = document.getElementById('background');
+        var close2 = document.getElementById('close-button2');
+        function show() {
+            background.style.display = "block";
+        }
+        close.onclick = function close() {
+            background.style.display = "none";
+        }
+        close2.onclick = function close() {
+            background.style.display = "none";
+        }
+
+        window.onclick = function close(e) {
+            if (e.target == div) {
+                background.style.display = "none";
+            }
+        }
+
+    </script>
+        <!-- 下面是弹窗*1*提交信息 -->
+        <script>
+                $(document).ready(function () {
+        
+                    
+                    $("#popupBtn2").click(function () {
+                          
+                        var form1_all = {
+                            conid:conTempId,
+                            conname: document.forms["form1"]["form1_name"].value,
+                            coninfo: document.forms["form1"]["form1_simpleInfo"].value,
+                            condate: document.forms["form1"]["form1_date"].value,
+                            conaddress: document.forms["form1"]["form1_address"].value
+                        };
+                        
+                    
+                        $.ajax({
+                            url: "http://42.159.11.72:8090/meeting/changeMeeting",
+                            type: "POST",
+                            contentType: "application/json;charset=utf-8",
+                            data: JSON.stringify(form1_all),
+                            success: function(data){
+                                alert("修改成功!");
+								window.location.href="main.html?companyid="+companyId;
+                                // background.style.display="none";
+
+                                document.getElementById("form1_name").value=htmlEncode(form1_all.conname);
+                                document.getElementById("form1_simpleInfo").value=htmlEncode(form1_all.coninfo);
+                                document.getElementById("form1_date").value=htmlEncode(form1_all.condate);
+                                document.getElementById("form1_address").value=htmlEncode(form1_all.conaddress);
+
+                            },
+                            error: function(){
+                                alert("失败");
+                            }
+                        })
+                    });
+        
+        
+                });
+            </script>
+    
+    <!-- 下面是弹窗*2*按钮事件 -->
+    <script>
+            var close2 = document.getElementById('close-button2');
+            var background2 = document.getElementById('background2');
+            var close22 = document.getElementById('close-button22');
+            function show2() {
+                    background2.style.display = "block";
+                }
+            close2.onclick = function close() {
+                    background2.style.display = "none";
+                    demo();
+                    var qq=document.getElementById("div221");
+                    
+                     
+                        qq.innerHTML="";
+                        numb=0;
+                }
+             close22.onclick = function close() {
+                    background2.style.display = "none";
+                    demo();
+                    var qq=document.getElementById("div221");
+
+                     
+                        qq.innerHTML="";
+                        numb=0;
+                }
+
+            window.onclick = function close(e) {
+                    if (e.target == div) {
+                        background2.style.display = "none";
+                    }
+            }
+    function demo(){   $(".contacts").attr("checked",false);}
+// 下面这部分是从数据库读联系人信息
+var aaaa="";
+    $.ajax({
+        url: "http://42.159.11.72:8090/user/findUserByCId/"+companyId,
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        success: function (data) {
+            $.each(data, function (i, data){
+                aaaa+="<tr><td><input type=\"checkbox\" class=\"contacts\" name=\"test\" value=\""+htmlEncode(data.memail)+"\"/>" +
+                    htmlEncode(data.mname)+"</td><td>邮箱:"+htmlEncode(data.memail)+"</td></tr>"
+            });
+            
+            var mytab=document.getElementById("mytable");
+            mytab.innerHTML=aaaa;
+            // var div1_2_6=document.getElementById("div1_2_6");
+            // div1_2_6.innerHTML=aaaa;
+        },
+        error: function (data) {
+            alert("错误!");
+        }
+    })
+
+
+                    // 下面是邀请其他人按钮的函数
+                    var numb = 0;
+                    
+                    function newp() {
+                        var people = document.getElementById("div221");
+                        var a = " <input placeholder=\"姓名：\" type=\"text\" id=\"name" + numb + "\">\n" +
+                            " <input placeholder=\"邮箱：\" type=\"text\" id=\"email" + numb + "\">";
+                        people.innerHTML += a;
+                        numb++;
+                    }
+
+                    // 下面是弹窗*2*提交申请，邀请
+
+                    function timer(time) {
+                            var btn = $("#popupBtn12");
+                            btn.attr("disabled", true);  //按钮禁止点击
+                            btn.val(time <= 0 ? "发送邀请" : ("" + (time) + "秒后可发送"));
+                            var hander = setInterval(function () {
+                                if (time <= 0) {
+                                    clearInterval(hander); //清除倒计时
+                                    btn.val("发送邀请");
+                                    btn.attr("disabled", false);
+                                    return false;
+                                } else {
+                                    btn.val("" + (time--) + "秒后可发送");
+                                }
+                            }, 1000);
+                        }
+
+                    function fun() {   
+                                      
+                        var obj = document.getElementsByName("test");
+                        var info=1;
+                        var b =  new Array();
+                        b[0]=conTempId;
+                        for (k in obj) {
+                            if (obj[k].checked) {
+                                // check_val.push(obj[k].value);
+                                // perInfo = [];
+                                // info = obj[k].value;
+                                // perInfo = info.split('|');
+                                b[info]=obj[k].value;
+                                info++;
+                            }
+                        }
+
+                        var temail;
+                        var emailinfo;
+                        for (var k = 0; k < numb; k++) {
+                            temail = "email" + k;
+                            emailinfo = document.getElementById(temail);
+                           b[info]=emailinfo.value;
+                           info++;
+                        }
+                        timer(3);
+                        $.ajax({
+                            url: "http://42.159.11.72:8090/sendMailtoVip",
+                            type: "POST",
+                            contentType: "application/json;charset=utf-8",
+                            data:JSON.stringify(b),
+                            success: function (data) {
+                            alert("邀请成功!"+data);
+                            
+                            function1_2_5();
+                         },
+                             error: function (data) {
+                                 alert("系统繁忙，邀请失败!");
+                             }
+                            })
+                    }
+
+    </script>
+
+        <!-- 下面是弹窗*3*按钮事件 -->
+    <script>
+                var close33 = document.getElementById('closebutton3');
+                var background3 = document.getElementById('background3');
+                function show3() {
+                    background3.style.display = "block";
+                    showFile();
+                }
+                close33.onclick = function close() {
+                    background3.style.display = "none";
+                }
+                window.onclick = function close(e) {
+                    if (e.target == div) {
+                        background3.style.display = "none";
+                    }
+                }
+
+    </script>
+    <script>
+     function showFile() {
+         var File="";
+         //alert("会议id:"+conid);
+         $.ajax({
+             url: 'http://42.159.11.72:8090/download/' + conTempId,
+             type: "GET",
+             contentType: "application/json;charset=utf-8",
+             success: function (data) {
+                 $.each(data, function (i, data){
+                     //alert(data.fileURL);
+                     File+= "<a class='fileshow' href= \""+data.fileURL+"\" download=\""+123+"\">" + data.fileName + "</a><br>"
+                 });
+                 var newfile = document.getElementById("background3div0");
+                 newfile.innerHTML+=File;
+             },
+             error: function (data) {
+                 alert("未接收到文件信息");
+             }
+         })
+
+     }
+    </script>
+
+        <!-- 点击会议查看详情的脚本 -->
+    <script>
+        var conTempId;
+        var conTempUrl;
+        function seeMoreInfo(){
+            conTempId=event.target.id;
+            conTempUrl="http://42.159.11.72:8090/meetingFile/"+conTempId;
+            div1_2_1.style.display="none";
+            div1_2_5.style.display="block";
+            function1_2_5();
+            // var form=document.getElementById("backgroundform1");
+            // form.action+=conTempId;
+
+
+
+        }
+
+            function postData() {
+                var formData = new FormData();
+                formData.append("file", document.getElementById("file1").files[0]);
+                $.ajax({
+                    url: "http://42.159.11.72:8090/meetingFile/"+conTempId,
+                    type: "POST",
+                    data: formData,
+                    /**
+                     *必须false才会自动加上正确的Content-Type
+                     */
+                    contentType: false,
+                    /**
+                     * 必须false才会避开jQuery对 formdata 的默认处理
+                     * XMLHttpRequest会对 formdata 进行正确的处理
+                     */
+                    processData: false,
+                    success: function (data) {
+                        alert(data);
+                    },
+                    error: function () {
+                        alert("上传失败！");
+                    }
+                });
+            }
+
+    </script>
+
+    <!-- 下面是会议详情界面加载时请求信息 -->
+    <script>    
+        var name333 = document.getElementById("textConName");
+        var simpleInfo = document.getElementById("textConSimpleInfo");
+        var date = document.getElementById("textConDate");
+        var where = document.getElementById("textConAddress");
+        var people333_1 = document.getElementById("textConPeople1");
+        var people333_2 = document.getElementById("textConPeople2");
+        var state333 = document.getElementById("textConState");
+        // 弹窗预设内容
+        var form1_name333 = document.getElementById("form1_name");
+        var form1_simpleInfo = document.getElementById("form1_simpleInfo");
+        var form1_date = document.getElementById("form1_date");
+        var form1_where = document.getElementById("form1_address");
+
+        function function1_2_5() {
+            $(document).ready(function () {
+                $.ajax({
+                    url: "http://42.159.11.72:8090/meeting/findMeeting/" + conTempId,
+                    type: "GET",
+                    contentType: "application/json;charset=utf-8",
+                    success: function (data) {
+                        var conference = data;
+                        conference.conname=htmlEncode(conference.conname);
+                        conference.coninfo=htmlEncode(conference.coninfo);
+                        conference.condate=htmlEncode(conference.condate);
+                        conference.conaddress=htmlEncode(conference.conaddress);
+
+                    // 下面这段是网页内容插入
+                        name333.innerHTML = "<h4>" + conference.conname + "</h4>";
+                        simpleInfo.innerHTML = "<h4>" + conference.coninfo + "</h4>";
+                        date.innerHTML = "<h4>" + conference.condate + "</h4>";
+                        where.innerHTML = "<h4>" + conference.conaddress + "</h4>";
+
+                    // 下面这段是弹窗*1*的内容预设
+                        form1_name333.innerHTML = conference.conname;
+                        form1_simpleInfo.innerHTML = conference.coninfo;
+                        form1_date.innerHTML = conference.condate;
+                        form1_where.innerHTML = conference.conaddress;
+
+
+                    },
+                    error: function (data) {
+                        alert("加载失败，错误提示：" + data);
+                    }
+                })
+                $.ajax({
+                    url: "http://42.159.11.72:8090/match/getJoinedVip/" + conTempId,
+                    type: "GET",
+                    contentType: "application/json;charset=utf-8",
+                    success: function (data) {
+                        var person="";
+                        var vip=document.getElementById("textConPeople1");
+
+                        $.each(data, function (i, data){
+                           person += data +" ";
+                        });
+                        vip.innerHTML=person;
+                    },
+                    error: function (data) {
+                        alert("加载失败");
+                    }
+                })
+                $.ajax({
+                    url: "http://42.159.11.72:8090/match/getNumberOfCon/" + conTempId,
+                    type: "GET",
+                    contentType: "application/json;charset=utf-8",
+                    success: function (data) {
+                        var customer=document.getElementById("textConPeople2");
+                        customer.innerHTML=data+"";
+                    },
+                    error: function (data) {
+                        alert("加载失败");
+                    }
+                })
+            });
+        }
+
+        
+    </script>
+
+    <!-- 下面是个人中心界面请求信息 -->
+    <script>
+        
+        var font1_2_4_1=document.getElementById("font1_2_4_1");
+        var text1_2_4_1=document.getElementById("text1_2_4_1");
+        var label1_2_4_1=document.getElementById("label1_2_4_1");
+        var label1_2_4_2=document.getElementById("label1_2_4_2");
+        var comName;
+        function function1_2_4() {
+            
+            $(document).ready(function () {
+                
+                $.ajax({
+                    url: "http://42.159.11.72:8090/company/findComById/" + companyId,
+                    type: "GET",
+                    contentType: "application/json;charset=utf-8",
+                    success: function (data) {
+                        // 下面是插入会议名称和简介
+                        comName=htmlEncode(data.companyname);
+                        font1_2_4_1.innerHTML=htmlEncode(data.companyname);
+                        text1_2_4_1.innerHTML=htmlEncode(data.userinfo);
+                        //alert("加载成功！");
+                    },
+                    error: function (data) {
+                        alert("加载失败，错误提示：" + data);
+                    }
+                })
+            });
+        }
+    </script>
+
+    <!-- 下面是个人中心点击修改资料 -->
+    <script>
+            function edit(){
+
+            text1_2_4_1.removeAttribute("readonly");
+            text1_2_4_1.setAttribute('style','border:solid 1px #00f;resize: none; ');
+            label1_2_4_1.style.display="none";
+            label1_2_4_2.style.display="block";
+
+        }
+
+        $(document).ready(function(){
+            $("#label1_2_4_2").click(function(){
+
+                var two={
+                    'companyid':companyId+"",
+                    'userinfo':$('#text1_2_4_1').val(),
+                    'companyname':comName,
+                };
+
+                $.ajax({
+                    url: "http://42.159.11.72:8090/company/changeInfo",
+                    type: "POST",
+                    contentType: "application/json;charset=utf-8",
+                    data: JSON.stringify(two),
+                    success: function (data) {
+                        label1_2_4_2.style.display="none";
+                        label1_2_4_1.style.display="block";
+                        text1_2_4_1.setAttribute('readonly',"readonly");
+                        text1_2_4_1.setAttribute('style','border:solid 0px #00f;resize: none; ');
+                    },
+                    error: function (data) {
+                       alert("修改失败");
+                    }
+                })
+
+        })});
+    </script>
+    
+    <!-- 下面是个人中心查看联系人 -->
+    <script>
+        var btn1_2_6_1=document.getElementById("btn1_2_6_1");
+        function seeContacts(){
+            // 1.设为可见
+            // 2.将其向上移动覆盖
+            // 3.原个人中心设为不可见
+            div1_2_6.style.display="block";
+            div1_2_6.className="div1_2_6A";
+            div1_2_4.style.display="none";
+        }
+        function closeContacts(){
+            // 1.原个人中心设为可见
+            // 2.界面向下移动
+            // 3.界面设为不可见
+            div1_2_4.style.display="block";
+            div1_2_6.className="div1_2_6B";
+            div1_2_6.style.display="none";
+        }
+        
+        function toDeleteContacts(){
+            div1_2_6_1.style.display="none";
+            div1_2_6_2.style.display="block";
+            btn1_2_6_1.innerHTML="取消";
+            btn1_2_6_1.setAttribute("onclick","exitDeleteContacts()");
+        }
+       function exitDeleteContacts(){
+           div1_2_6_1.style.display="block";
+           div1_2_6_2.style.display="none";
+           btn1_2_6_1.innerHTML="修改联系人";
+           btn1_2_6_1.setAttribute("onclick","toDeleteContacts()");
+       }
+        // 下面是联系人信息载入    
+
+            // var a="";
+            // var b="";
+            // $.ajax({
+            //     url: "http://192.168.137.1:8090/meeting/findByCId/"+companyId,
+            //     type: "GET",
+            //     contentType: "application/json;charset=utf-8",
+            //     success: function (data) {
+            //         $.each(data, function (i, data){
+            //             a+= "<button class=\"arrange\" id=\""+data.conid+"\" onclick=\"seeMoreInfo()\">\n" +
+            //                 "            会议名称："+data.conname+ "<br><br>\n" +
+            //                 "            日期："+data.condate+ "<br><br>\n" +
+            //                 "            地点："+data.conaddress+ "<br><br>\n" +
+            //                 "            简介："+data.coninfo+ "<br>\n" +
+            //                 "        </button>";
+            //             b+= "<button class=\"arrange2\" id=\""+data.conid+"\" onclick='deleteCon(this)'><h2>删除</h2><br>会议名称:"+data.conname+"" +
+            //                 "<br><br>日期:"+data.condate+"<br><br>地点:"+data.conaddress+"</button>"
+            //         });
+            //         var meeting = document.getElementById("div1_2_1");
+            //         meeting.innerHTML=a;
+            //         meeting=document.getElementById("div1_2_3");
+            //         meeting.innerHTML=b;
+            //     },
+            //     error: function (data) {
+            //         alert("数据加载失败");
+            //     }
+            // })
+
+            var contactitems = "";
+            var contactitemsdelete = "";
+                $.ajax({
+                    url: "http://42.159.11.72:8090/user/findUserByCId/" + companyId,
+                    type: "GET",
+                    contentType: "application/json;charset=utf-8",
+                    success: function (data) {
+                        $.each(data, function (i, data) {
+                            contactitems+="<button class=\"contacts_items\" id=\""+data.musername+"\" onclick='' >姓名:"+htmlEncode(data.mname)+" " +
+                            "邮箱:"+htmlEncode(data.memail)+"</button>";
+                            contactitemsdelete+="<button class=\"contactsdelete_items\" id=\""+data.musername+"\" onclick=''>删除-姓名:"+data.mname+" " +
+                            "邮箱:"+data.memail+"</button>"
+                        });
+
+                        // var mytab = document.getElementById("mytable");
+                        // mytab.innerHTML = aaaa;
+                        var div1_2_6_1=document.getElementById("div1_2_6_1");
+                        div1_2_6_1.innerHTML=contactitems;
+                        var div1_2_6_2=document.getElementById("div1_2_6_2");
+                        div1_2_6_2.innerHTML=contactitemsdelete;
+                        
+                        // div1_2_6=document.getElementById("div1_2_6_2");
+                        // div1_2_6.innerHTML=contactitemsdelete;
+                    },
+                    error: function (data) {
+                        alert("联系人加载失败");
+                    }
+                })
+
+            
+    </script>
+
+<!-- 下面是各种按钮点击跳转 -->
+    <script>
+        // 获得各个板块
+       
+        var div1_2_1=document.getElementById('div1_2_1');
+        var div1_2_2=document.getElementById('div1_2_2');
+        var div1_2_3=document.getElementById('div1_2_3');
+        var div1_2_4=document.getElementById('div1_2_4');
+        var div1_2_5=document.getElementById('div1_2_5');
+        var div1_2_6=document.getElementById('div1_2_6');
+        // var background=getElementById('background'); alert(13213213);
+        // var background2=getElementById('background2');
+        // 获得顶上四个按钮
+        var confeenceList=document.getElementById('btntop1');
+        var newConference=document.getElementById('btntop2');
+        var deleteConfeence=document.getElementById('btntop3');
+        var myInfo=document.getElementById('btntop4');
+
+        function clickConferenceList(){
+            confeenceList.style.backgroundColor="rgb(16,98,84)";
+            confeenceList.style.color="white";
+            newConference.style.backgroundColor="white";
+            newConference.style.color="black";
+            deleteConfeence.style.backgroundColor="white";
+            deleteConfeence.style.color="black";
+            myInfo.style.backgroundColor="white";
+            myInfo.style.color="black";
+
+            div1_2_1.style.display="block";
+            div1_2_2.style.display="none";
+            div1_2_3.style.display="none";
+            div1_2_4.style.display="none";
+            div1_2_5.style.display="none";
+            div1_2_6.style.display="none";
+            background.style.display="none";
+            background2.style.display="none";
+
+        }
+
+        function clickNewConference(){
+            confeenceList.style.backgroundColor="white";
+            confeenceList.style.color="black";
+            newConference.style.backgroundColor="rgb(16,98,84)";
+            newConference.style.color="white"; 
+            deleteConfeence.style.backgroundColor="white";
+            deleteConfeence.style.color="black";
+            myInfo.style.backgroundColor="white";
+            myInfo.style.color="black";
+
+            div1_2_1.style.display="none";
+            div1_2_2.style.display="block";
+            div1_2_3.style.display="none";
+            div1_2_4.style.display="none";
+            div1_2_5.style.display="none";
+            div1_2_6.style.display="none";
+            background.style.display="none";
+            background2.style.display="none";
+        }
+
+        function clickDeleteConference(){    
+             
+            confeenceList.style.backgroundColor="white";
+            confeenceList.style.color="black";
+            newConference.style.backgroundColor="white";
+            newConference.style.color="black"; 
+            deleteConfeence.style.backgroundColor="rgb(16,98,84)";            
+            deleteConfeence.style.color="white";
+            myInfo.style.backgroundColor="white";
+            myInfo.style.color="black";
+
+            div1_2_1.style.display="none";
+            div1_2_2.style.display="none";
+            div1_2_3.style.display="block";
+            div1_2_4.style.display="none";
+            div1_2_5.style.display="none";
+            div1_2_6.style.display="none";
+            background.style.display="none";
+            background2.style.display="none";
+    
+        }
+
+        function clickMyInfo(){
+     
+            confeenceList.style.backgroundColor="white";
+            confeenceList.style.color="black";
+            newConference.style.backgroundColor="white";
+            newConference.style.color="black";
+            deleteConfeence.style.backgroundColor="white";
+            deleteConfeence.style.color="black";
+            myInfo.style.backgroundColor="rgb(16,98,84)";
+            myInfo.style.color="white";
+
+            div1_2_1.style.display="none";
+            div1_2_2.style.display="none";
+            div1_2_3.style.display="none";
+            div1_2_4.style.display="block";
+            div1_2_5.style.display="none";
+            div1_2_6.style.display="none";
+            background.style.display="none";
+            background2.style.display="none";
+
+            function1_2_4();
+        }
+
+    </script>
+
+    <script>
+        
+    
+    </script>
+
+
+</body>
+
+</html>
+
+        <!-- 下面是弹窗*2*提交信息 -->
+    <!-- <script>
+            $(document).ready(function () {
+
+
+                $("#popupBtn12").click(function () {
+                    var idandvip={
+                        conid:conTempId,
+                        form1_convip : document.forms["form1"]["form1_address"].value
+                    }
+
+                    $.ajax({
+                        url: "http://192.168.137.1:8090/meeting/add",
+                        type: "POST",
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify(form1_convip),
+                        success: function (data) {
+                            alert("提交成功：" + data);
+                        },
+                        error: function (data) {
+                            alert("提交失败");
+                        }
+                    })
+                });
+            });
+    </script> -->
+
+<!-- 下面这个脚本用来管理顶部按钮跳转 -->
