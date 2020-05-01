@@ -1,0 +1,173 @@
+<!-- 2017302580283 李彩彬 -->
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>消息</title>
+		<meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="stylesheet" type="text/css" href="../css/title.css">
+		<link rel="stylesheet" type="text/css" href="../css/style.css">
+		<link rel="stylesheet" href="../layui/css/layui.css">
+		<script type="text/javascript" src="../js/funing.js"></script>
+		<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+		<script src="../layui/layui.all.js"></script>
+	</head>
+	<script>
+		var username = UrlParam.paramValues("uname");
+		if(sessionStorage.getItem("username") == null){
+			window.location.href = "../login/login.html";
+		}
+	</script>
+	<script>
+		function toindex() {
+			window.location.href = "../meeting/index.html?uname=" + username;
+		}
+
+		function tomessage() {
+			window.location.href = "../message/message.html?uname=" + username;
+		}
+
+		function topersonalpage() {
+			window.location.href = "../user/personalpage.html?uname=" + username;
+		}
+	</script>
+	<script>
+		window.onload=function(){
+			src1="http://42.159.11.72:8090/myProfile/"+username+".jpg";
+			// alert(src1);
+			document.getElementById("myprofile").src = src1;
+		};
+		function change(conid) { //实现将会议状态从2变1,然后跳转页面至会议详情
+			var usernameANDconid = {
+				musername: String(username),
+				conid: String(conid)
+			};
+			$.ajax({
+				url: "http://42.159.11.72:8090/match/matchChange",
+				type: "POST",
+				contentType: "application/json;charset=utf-8",
+				data: JSON.stringify(usernameANDconid), //向后台传递用户名和会议id
+				success: function () {
+				   window.location.href = "../meeting/meetingdetail.html?id=" + conid + "&uname=" + username; //页面跳转
+				}
+			})
+			// window.location.href = "../meeting/meetingdetail.html?id=" + conid + "&uname=" + username; //页面跳转
+		}
+
+		function delete1(conid) { //实现将会议状态从3变1.			
+			var usernameANDconid = {
+				musername: String(username),
+				conid: String(conid)
+			};
+			$.ajax({
+				url: "http://42.159.11.72:8090/match/matchDelete",
+				type: "POST",
+				contentType: "application/json;charset=utf-8",
+				data: JSON.stringify(usernameANDconid),//向后台传递用户名和会议id
+				success: function () {
+				  window.location.href = "message.html?id=" + conid + "&uname=" + username; //页面刷新
+				}
+			})
+			 
+		}
+	</script>
+	<style>
+		.button2 {
+			width: 33.3%;
+			height: 80px;
+			border: none;
+			display: inline;
+		}
+
+		.search .layui-icon.layui-icon-reply-fill {
+			position: absolute;
+			bottom: 30%;
+			left: 46%;
+			color: #03A9F4;
+			font-size: xx-large;
+			font-weight: 900;
+		}
+
+		.title .titletext {
+			position: absolute;
+			line-height: 45px;
+			font-size: large;
+			font-weight: 900;
+			text-align: center;
+			font-family: "youyuan";
+			bottom: 14%;
+			left: 46%;
+		}
+		#TheMessageList{
+			margin-top: 5px;
+		}
+	</style>
+
+	<body>
+		<div class="title">
+			<img  alt="profile" id="myprofile">
+			<p class="titletext">消息</p>
+		</div>
+		<div class="search">
+			<button class="button1" onclick="toindex()"><i class="layui-icon layui-icon-menu-fill"></i></button><button class="button2"
+			 onclick="tomessage()"><i class="layui-icon layui-icon-reply-fill"></i></button><button class="button3" onclick="topersonalpage()"><i
+				 class="layui-icon layui-icon-friends"></i></button>
+		</div>
+
+
+		<!-- 我的消息列表 -->
+		<div id="TheMessageList">
+		</div>
+		<script>
+			var MessageList = "";
+			$.ajax({
+				url: "http://42.159.11.72:8090/match/findMatchsByMusername/" + username,
+				type: "GET",
+				contentType: "application/json;charset=utf-8",
+				//data:username,							// 给后台传递信息musername					
+				success: function(data) { //得到会议状态,包括会议名称,会议id,个人状态,会议状态. 遍历并输出
+				var meeting = document.getElementById("TheMessageList");
+					$.each(data, function(i, data) {
+						if (data.state == 1) { //已被邀请,未报名,跳转界面至会议详情然后报名
+							MessageList +=
+								"<button class=\"buttonlist\" onclick=\"window.location.href='../meeting/meetingdetail.html?id=" + data.conid +
+								"&uname=" + username + "'\">\n" +
+								data.conname + ":邀请你参加会议" +
+								"</button>"							
+								meeting.innerHTML = MessageList;
+						} else if (data.state >= 2 && data.constate == 2) { //会议信息修改,调用change函数,跳转界面至会议详情
+								MessageList += "<button id=\"change_1\" class=\"buttonlist\" >\n" +
+								data.conname + ":修改了会议信息" +
+								"</button>"
+								meeting.innerHTML = MessageList;
+								var a = document.getElementById("change_1");
+								//console.log(a);
+								$("#change_1").on("click", function() {
+								change(data.conid);
+								});	
+						} else if (data.state >= 2 && data.constate == 3) { //会议取消,点击后调用delete函数,刷新界面
+								MessageList += "<button id=\"delete_1\" class=\"buttonlist\" >\n" +
+								data.conname + ":取消了会议" +
+								"</button>"
+								meeting.innerHTML = MessageList;
+								var a = document.getElementById("delete_1");
+								//console.log(a);
+								$("#delete_1").on("click", function() {
+								delete1(data.conid);
+							    });							
+						}
+
+					});
+				},
+				error: function(data) {
+					alert("获取消息信息失败");
+				}
+			})
+		</script>
+
+
+	</body>
+</html>

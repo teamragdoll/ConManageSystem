@@ -1,0 +1,124 @@
+/* 2017302580270 王泽煜 */
+.title{
+		background-color: #03A9F4;
+		color: #FFFFFF;
+		border: #4CAF50;		
+	    padding: 15px 32px;	   
+		position: relative;
+		height: 50px;
+		/* margin-bottom: 50px; */
+		background: -webkit-linear-gradient(left top, #03A9F4, #2196F3); /* Safari 5.1 - 6.0 */
+		background: -o-linear-gradient(bottom right, #03A9F4, #2196F3); /* Opera 11.1 - 12.0 */
+		background: -moz-linear-gradient(bottom right, #03A9F4, #2196F3); /* Firefox 3.6 - 15 */
+		background: linear-gradient(to bottom right, #03A9F4 , #2196F3);
+	}
+.button1{
+	    background-color: #EAEAEA;
+	    color: black;
+	    font-family: "youyuan";
+		font-size: larger;
+		width: 33.3%;
+		height: 80px;
+		border: none;
+		display:inline;
+		
+		
+	}
+.button2{
+		background-color: #EAEAEA;
+		color: black;
+		font-family: "youyuan";
+		font-size: larger;
+		width: 33.3%;
+		height: 80px;
+		border: none;
+		display:inline;
+	}
+.button3{
+	    background-color: #EAEAEA;
+	    color: black;
+	    font-family: "youyuan";
+		font-size: larger;
+		width: 33.3%;
+		height: 80px;
+		border: none;
+		display:inline;
+	}			
+.buttonlist{
+	background-color:#FFFFFF;
+	color:black;
+	font-family: "youyuan";
+	padding: 15px 32px;
+	text-align: left;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 20px;
+	border-radius: 12px;
+	width: 98%;
+	margin-bottom: 3px;
+	margin-left: 1%;
+}
+.search{
+	height: 80px;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	
+	
+}
+.title .titletext{
+	position: absolute;
+	line-height: 45px;
+	font-size: large;
+	font-weight: 900;
+	text-align: center;
+	font-family: "youyuan";
+	bottom: 14%;
+	left: 41%;
+}
+/* .search .icon-list{
+	position: absolute;
+	top: 6px;
+	left: 30px;
+	color: #000000;
+}
+.search .icon-user{
+	position: absolute;
+	top: 6px;
+	left: 210px;
+	color: #000000;
+} */
+.search .layui-icon.layui-icon-menu-fill{
+	position: absolute;
+	bottom: 33%;
+	left: 14%;
+	color: #737383;
+	font-size: x-large;
+} 
+.search .layui-icon.layui-icon-reply-fill{
+	position: absolute;
+	bottom: 33%;
+	left: 47%;
+	color: #737383;
+	font-size: x-large;
+	font-weight: 900;
+} 
+.search .layui-icon.layui-icon-friends{
+	position: absolute;
+	bottom: 33%;
+	left: 80%;
+	color: #737383;
+	font-size: x-large;
+	font-weight: 900;
+}
+.search{
+	margin: 0;
+	bottom: 0;
+}
+ #myprofile{
+	 position: absolute;
+	 left:6%;
+	 width:13%;
+	 border-radius:50px;
+	 bottom: 19%;
+ }
